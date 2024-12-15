@@ -176,7 +176,7 @@ public abstract class Lists {
     /**
      * Return an immutable, sorted copy of the input list.
      * @param list list of elements to sort elements of
-     * @return a new, sorted, immutable list of the original elements
+     * @return a sorted, immutable copy of the original list
      * @param <T> type of list elements
      */
     public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
@@ -186,7 +186,7 @@ public abstract class Lists {
     /**
      * Return a mutable, sorted copy of the input list.
      * @param list list of elements to sort elements of
-     * @return a new, sorted, mutable list of the original elements
+     * @return a sorted, mutable copy of the original list
      * @param <T> type of list elements
      */
     public static <T extends Comparable<? super T>> List<T> sortedMutable(List<T> list) {
@@ -199,7 +199,7 @@ public abstract class Lists {
      * Return an immutable, sorted copy of the input list.
      * @param list list of elements to sort elements of
      * @param comparator sort order
-     * @return a new, sorted, immutable list of the original elements
+     * @return a sorted, immutable copy of the original list
      * @param <T> type of list elements
      */
     public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
@@ -210,12 +210,34 @@ public abstract class Lists {
      * Return a mutable, sorted copy of the input list.
      * @param list list of elements to sort elements of
      * @param comparator sort order
-     * @return a new, sorted, mutable list of the original elements
+     * @return a sorted, mutable copy of the original list
      * @param <T> type of list elements
      */
     public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
         List<T> copy = new ArrayList<>(list);
         copy.sort(comparator);
+        return copy;
+    }
+
+    /**
+     * Return an immutable copy of the given list in reverse order.
+     * @param list list of original elements
+     * @return an immutable copy of the original list, in reverse order.
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> reversed(List<T> list) {
+        return Collections.unmodifiableList(reversedMutable(list));
+    }
+
+    /**
+     * Return a mutable copy of the given list in reverse order.
+     * @param list list of original elements
+     * @return a mutable copy of the original list, in reverse order.
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> reversedMutable(List<T> list) {
+        List<T> copy = new ArrayList<>(list);
+        Collections.reverse(copy);
         return copy;
     }
 

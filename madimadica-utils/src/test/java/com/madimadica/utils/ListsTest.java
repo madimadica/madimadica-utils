@@ -239,4 +239,26 @@ class ListsTest {
         assertMutable(sorted);
     }
 
+    @Test
+    void testReversed() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        List<Dog> reversed = Lists.reversed(list);
+        assertEquals(List.of(c, b, a), reversed);
+        assertImmutable(reversed);
+    }
+
+    @Test
+    void testReversedMutable() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        List<Dog> reversed = Lists.reversedMutable(list);
+        assertEquals(List.of(c, b, a), reversed);
+        assertMutable(reversed);
+    }
+
 }
