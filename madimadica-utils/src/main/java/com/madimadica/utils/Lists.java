@@ -145,4 +145,32 @@ public abstract class Lists {
         return output;
     }
 
+    /**
+     * Filter the given list into an immutable list by the given predicate.
+     * @param list list to filter
+     * @param predicate predicate to filter on
+     * @return an immutable list of the matching elements.
+     * @param <X> type of input and output list elements
+     */
+    public static <X> List<X> filter(List<X> list, Predicate<? super X> predicate) {
+        return list.stream().filter(predicate).collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * Filter the given list into a mutable list by the given predicate.
+     * @param list list to filter
+     * @param predicate predicate to filter on
+     * @return a mutable list of the matching elements.
+     * @param <X> type of input and output list elements
+     */
+    public static <X> List<X> filterMutable(List<X> list, Predicate<? super X> predicate) {
+        List<X> output = new ArrayList<>(list.size());
+        for (var e : list) {
+            if (predicate.test(e)) {
+                output.add(e);
+            }
+        }
+        return output;
+    }
+
 }

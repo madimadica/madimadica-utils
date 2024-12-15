@@ -11,12 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ListsTest {
 
-    private void assertImmutable(List<Integer> list) {
-        assertThrows(UnsupportedOperationException.class, () -> list.add(0));
+    private void assertImmutable(List<?> list) {
+        assertThrows(UnsupportedOperationException.class, () -> list.add(null));
     }
 
-    private void assertMutable(List<Integer> list) {
-        assertDoesNotThrow(() -> list.add(0));
+
+    private void assertMutable(List<?> list) {
+        assertDoesNotThrow(() -> list.add(null));
     }
 
     @Test
@@ -168,4 +169,29 @@ class ListsTest {
         assertEquals(List.of(7, 8, 9), ages);
         assertMutable(ages);
     }
+
+    @Test
+    void testFilter() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> dogs = List.of(a, b, c);
+
+        List<Dog> olderThan7 = Lists.filter(dogs, dog -> dog.getAge() > 7);
+        assertEquals(List.of(b, c), olderThan7);
+        assertImmutable(olderThan7);
+    }
+
+    @Test
+    void testFilterMutable() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> dogs = List.of(a, b, c);
+
+        List<Dog> olderThan7 = Lists.filterMutable(dogs, dog -> dog.getAge() > 7);
+        assertEquals(List.of(b, c), olderThan7);
+        assertMutable(olderThan7);
+    }
+
 }
