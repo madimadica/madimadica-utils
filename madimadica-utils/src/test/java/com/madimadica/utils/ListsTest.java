@@ -664,4 +664,13 @@ class ListsTest {
         assertMutable(list);
     }
 
+    @Test
+    void testSortCaseInsensitive() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        var dogs = Lists.ofMutable(b, c, a);
+        Lists.sortCaseInsensitive(dogs, Dog::getName);
+        assertEquals(List.of(a, b, c), dogs);
+    }
 }

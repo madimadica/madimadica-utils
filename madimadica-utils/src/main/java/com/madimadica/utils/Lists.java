@@ -535,4 +535,15 @@ public abstract class Lists {
         return output;
     }
 
+    /**
+     * In-place sort a list of type {@code T} using case-insensitive string comparisons of
+     * the results from {@code stringMapper}
+     * @param list List to inplace sort
+     * @param stringMapper Function to map {@code T} to {@link String}
+     * @param <T> Type of elements
+     * @throws UnsupportedOperationException if list is immutable
+     */
+    public static <T> void sortCaseInsensitive(List<T> list, Function<? super T, String> stringMapper) {
+        list.sort((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(stringMapper.apply(a), stringMapper.apply(b)));
+    }
 }
