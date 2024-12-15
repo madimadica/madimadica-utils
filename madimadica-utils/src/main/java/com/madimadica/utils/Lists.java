@@ -617,16 +617,16 @@ public abstract class Lists {
      * <p>
      *     Mappings to {@code null} keys are allowed, which differs from {@link Collectors#groupingBy(Function)}
      * </p>
-     * @param list list of data to cluster
+     * @param collection collection of data to cluster
      * @param classifier how to cluster the data (the key to group on)
      * @return A mutable Map of Mutable Lists.
      * @param <K> Type of the key to group on
      * @param <V> Type of the elements being grouped
-     * @throws NullPointerException if any element of {@code list} is {@code null}.
+     * @throws NullPointerException if any element of {@code collection} is {@code null}.
      */
-    public static <K, V> Map<K, List<V>> groupBy(List<V> list, Function<? super V, ? extends K> classifier) {
+    public static <K, V> Map<K, List<V>> groupBy(Collection<V> collection, Function<? super V, ? extends K> classifier) {
         Map<K, List<V>> map = new HashMap<>();
-        for (V v : list) {
+        for (V v : collection) {
             K key = classifier.apply(Objects.requireNonNull(v));
             List<V> group = map.computeIfAbsent(key, k -> new ArrayList<>());
             group.add(v);
@@ -645,17 +645,17 @@ public abstract class Lists {
      * <p>
      *     Mappings to {@code null} keys are allowed, which differs from {@link Collectors#groupingBy(Function)}
      * </p>
-     * @param list list of data to cluster
+     * @param collection collection of data to cluster
      * @param classifier how to cluster the data (the key to group on)
      * @param valueMapper how to remap the elements after grouping
      * @return A mutable Map of Mutable Lists.
      * @param <K> Type of the key to group on
      * @param <V> Type of the elements being grouped
-     * @throws NullPointerException if any element of {@code list} is {@code null}.
+     * @throws NullPointerException if any element of {@code collection} is {@code null}.
      */
-    public static <K, V, Y> Map<K, List<Y>> groupByAndMap(List<V> list, Function<? super V, ? extends K> classifier, Function<? super V, ? extends Y> valueMapper) {
+    public static <K, V, Y> Map<K, List<Y>> groupByAndMap(Collection<V> collection, Function<? super V, ? extends K> classifier, Function<? super V, ? extends Y> valueMapper) {
         Map<K, List<Y>> map = new HashMap<>();
-        for (V v : list) {
+        for (V v : collection) {
             K key = classifier.apply(Objects.requireNonNull(v));
             List<Y> group = map.computeIfAbsent(key, k -> new ArrayList<>());
             group.add(valueMapper.apply(v));
