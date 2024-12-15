@@ -275,6 +275,7 @@ public class MapsGenerator {
         } else {
             javadoc.add("@throws NullPointerException if any <em>key or value</em> is {@code null}.");
         }
+        javadoc.add("@since 1.0");
 
         StringJoiner signatureSj = new StringJoiner(", ", "public static <K, V> Map<K, V> " + methodName + "(", ")");
         for (int j = 1; j <= entryCount; ++j) {
@@ -306,6 +307,7 @@ public class MapsGenerator {
         }
         javadoc.add("@param mapToCopy a non-null map to deep-copy the entries from.");
         javadoc.add("@throws NullPointerException if any key " + (nullable ? "" : "or value ") + "is null.");
+        javadoc.add("@since 1.0");
         StringBuilder method = new StringBuilder().append(javadoc).append("\n");
         method.append("    public static <K, V> Map<K, V> ").append(methodName).append("(Map<? extends K, ? extends V> mapToCopy) {")
                 .append("\n        if (mapToCopy.containsKey(null)) {")

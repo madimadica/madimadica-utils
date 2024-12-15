@@ -27,6 +27,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1) {
         if (k1 == null) {
@@ -49,6 +50,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2) {
         if (k1 == null || k2 == null) {
@@ -74,6 +76,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3) {
         if (k1 == null || k2 == null || k3 == null) {
@@ -102,6 +105,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         if (k1 == null || k2 == null || k3 == null || k4 == null) {
@@ -133,6 +137,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null) {
@@ -167,6 +172,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null) {
@@ -204,6 +210,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null) {
@@ -244,6 +251,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null) {
@@ -287,6 +295,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null) {
@@ -333,6 +342,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null) {
@@ -382,6 +392,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null) {
@@ -434,6 +445,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11, K k12, V v12) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null || k12 == null) {
@@ -465,6 +477,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1) {
         if (k1 == null) {
@@ -487,6 +500,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2) {
         if (k1 == null || k2 == null) {
@@ -512,6 +526,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3) {
         if (k1 == null || k2 == null || k3 == null) {
@@ -540,6 +555,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         if (k1 == null || k2 == null || k3 == null || k4 == null) {
@@ -571,6 +587,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null) {
@@ -605,6 +622,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null) {
@@ -642,6 +660,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null) {
@@ -682,6 +701,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null) {
@@ -725,6 +745,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null) {
@@ -771,6 +792,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null) {
@@ -820,6 +842,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null) {
@@ -872,6 +895,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11, K k12, V v12) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null || k12 == null) {
@@ -903,6 +927,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1) {
         if (k1 == null || v1 == null) {
@@ -925,6 +950,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2) {
         if (k1 == null || v1 == null || k2 == null || v2 == null) {
@@ -950,6 +976,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null) {
@@ -978,6 +1005,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null) {
@@ -1009,6 +1037,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null) {
@@ -1043,6 +1072,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null) {
@@ -1080,6 +1110,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null) {
@@ -1120,6 +1151,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null || k8 == null || v8 == null) {
@@ -1163,6 +1195,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null || k8 == null || v8 == null || k9 == null || v9 == null) {
@@ -1209,6 +1242,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null || k8 == null || v8 == null || k9 == null || v9 == null || k10 == null || v10 == null) {
@@ -1258,6 +1292,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null || k8 == null || v8 == null || k9 == null || v9 == null || k10 == null || v10 == null || k11 == null || v11 == null) {
@@ -1310,6 +1345,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any <em>key or value</em> is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrdered(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11, K k12, V v12) {
         if (k1 == null || v1 == null || k2 == null || v2 == null || k3 == null || v3 == null || k4 == null || v4 == null || k5 == null || v5 == null || k6 == null || v6 == null || k7 == null || v7 == null || k8 == null || v8 == null || k9 == null || v9 == null || k10 == null || v10 == null || k11 == null || v11 == null || k12 == null || v12 == null) {
@@ -1341,6 +1377,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1) {
         if (k1 == null) {
@@ -1363,6 +1400,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2) {
         if (k1 == null || k2 == null) {
@@ -1388,6 +1426,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3) {
         if (k1 == null || k2 == null || k3 == null) {
@@ -1416,6 +1455,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         if (k1 == null || k2 == null || k3 == null || k4 == null) {
@@ -1447,6 +1487,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null) {
@@ -1481,6 +1522,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null) {
@@ -1518,6 +1560,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null) {
@@ -1558,6 +1601,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null) {
@@ -1601,6 +1645,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null) {
@@ -1647,6 +1692,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null) {
@@ -1696,6 +1742,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null) {
@@ -1748,6 +1795,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedNullable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11, K k12, V v12) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null || k12 == null) {
@@ -1779,6 +1827,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1) {
         if (k1 == null) {
@@ -1801,6 +1850,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2) {
         if (k1 == null || k2 == null) {
@@ -1826,6 +1876,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3) {
         if (k1 == null || k2 == null || k3 == null) {
@@ -1854,6 +1905,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4) {
         if (k1 == null || k2 == null || k3 == null || k4 == null) {
@@ -1885,6 +1937,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null) {
@@ -1919,6 +1972,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null) {
@@ -1956,6 +2010,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null) {
@@ -1996,6 +2051,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null) {
@@ -2039,6 +2095,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null) {
@@ -2085,6 +2142,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null) {
@@ -2134,6 +2192,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null) {
@@ -2186,6 +2245,7 @@ public abstract class Maps {
      * @param <K> key type
      * @param <V> key type
      * @throws NullPointerException if any key is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> ofOrderedMutable(K k1, V v1, K k2, V v2, K k3, V v3, K k4, V v4, K k5, V v5, K k6, V v6, K k7, V v7, K k8, V v8, K k9, V v9, K k10, V v10, K k11, V v11, K k12, V v12) {
         if (k1 == null || k2 == null || k3 == null || k4 == null || k5 == null || k6 == null || k7 == null || k8 == null || k9 == null || k10 == null || k11 == null || k12 == null) {
@@ -2375,6 +2435,7 @@ public abstract class Maps {
      * The values may be {@code null}.
      * @param mapToCopy a non-null map to deep-copy the entries from.
      * @throws NullPointerException if any key is null.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> copyOfNullable(Map<? extends K, ? extends V> mapToCopy) {
         if (mapToCopy.containsKey(null)) {
@@ -2392,6 +2453,7 @@ public abstract class Maps {
      * The values may <strong>not</strong> be {@code null}.
      * @param mapToCopy a non-null map to deep-copy the entries from.
      * @throws NullPointerException if any key or value is null.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> copyOfOrdered(Map<? extends K, ? extends V> mapToCopy) {
         if (mapToCopy.containsKey(null)) {
@@ -2412,6 +2474,7 @@ public abstract class Maps {
      * The values may be {@code null}.
      * @param mapToCopy a non-null map to deep-copy the entries from.
      * @throws NullPointerException if any key is null.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> copyOfOrderedNullable(Map<? extends K, ? extends V> mapToCopy) {
         if (mapToCopy.containsKey(null)) {
