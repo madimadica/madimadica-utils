@@ -292,51 +292,51 @@ public abstract class Lists {
     }
 
     /**
-     * Return an immutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @return a sorted, immutable copy of the original list
-     * @param <T> type of list elements
+     * Return an immutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
+     * @return a sorted, immutable copy of the original collection
+     * @param <T> type of collection elements
      * @since 1.0
      */
-    public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
-        return Collections.unmodifiableList(sortedMutable(list));
+    public static <T extends Comparable<? super T>> List<T> sorted(Collection<T> collection) {
+        return Collections.unmodifiableList(sortedMutable(collection));
     }
 
     /**
-     * Return a mutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @return a sorted, mutable copy of the original list
-     * @param <T> type of list elements
+     * Return a mutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
+     * @return a sorted, mutable copy of the original collection
+     * @param <T> type of collection elements
      * @since 1.0
      */
-    public static <T extends Comparable<? super T>> List<T> sortedMutable(List<T> list) {
-        List<T> copy = new ArrayList<>(list);
+    public static <T extends Comparable<? super T>> List<T> sortedMutable(Collection<T> collection) {
+        List<T> copy = new ArrayList<>(collection);
         Collections.sort(copy);
         return copy;
     }
 
     /**
-     * Return an immutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
+     * Return an immutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
      * @param comparator sort order
-     * @return a sorted, immutable copy of the original list
-     * @param <T> type of list elements
+     * @return a sorted, immutable copy of the original collection
+     * @param <T> type of collection elements
      * @since 1.0
      */
-    public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
-        return Collections.unmodifiableList(sortedMutable(list, comparator));
+    public static <T> List<T> sorted(Collection<T> collection, Comparator<? super T> comparator) {
+        return Collections.unmodifiableList(sortedMutable(collection, comparator));
     }
 
     /**
-     * Return a mutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
+     * Return a mutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
      * @param comparator sort order
-     * @return a sorted, mutable copy of the original list
-     * @param <T> type of list elements
+     * @return a sorted, mutable copy of the original collection
+     * @param <T> type of collection elements
      * @since 1.0
      */
-    public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
-        List<T> copy = new ArrayList<>(list);
+    public static <T> List<T> sortedMutable(Collection<T> collection, Comparator<? super T> comparator) {
+        List<T> copy = new ArrayList<>(collection);
         copy.sort(comparator);
         return copy;
     }
