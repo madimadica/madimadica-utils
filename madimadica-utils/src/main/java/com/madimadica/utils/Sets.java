@@ -469,6 +469,48 @@ public abstract class Sets {
     }
 
     /**
+     * Return an immutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
+     * @return a sorted, immutable set
+     * @param <T> type of collection elements
+     * @throws NullPointerException if any element is {@code null}
+     * @since 1.0
+     */
+    public static <T extends Comparable<? super T>> Set<T> sorted(Collection<T> collection) {
+        return Collections.unmodifiableSet(new TreeSet<>(collection));
+    }
+
+    /**
+     * Return an immutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
+     * @param comparator sort order
+     * @return a sorted, immutable set
+     * @param <T> type of collection elements
+     * @throws NullPointerException if any element is {@code null}
+     * @since 1.0
+     */
+    public static <T> Set<T> sorted(Collection<T> collection, Comparator<? super T> comparator) {
+        Set<T> set = new TreeSet<>(comparator);
+        set.addAll(collection);
+        return Collections.unmodifiableSet(set);
+    }
+
+    /**
+     * Return a mutable, sorted copy of the input collection.
+     * @param collection collection of elements to sort elements of
+     * @param comparator sort order
+     * @return a sorted, mutable {@link TreeSet} containing the distinct elements from the original collection
+     * @param <T> type of collection elements
+     * @throws NullPointerException if any element is {@code null}
+     * @since 1.0
+     */
+    public static <T> TreeSet<T> sortedMutable(Collection<T> collection, Comparator<? super T> comparator) {
+        TreeSet<T> set = new TreeSet<>(comparator);
+        set.addAll(collection);
+        return set;
+    }
+
+    /**
      * <p>
      *     Create an immutable, non-null set from the given iterable.
      * </p>

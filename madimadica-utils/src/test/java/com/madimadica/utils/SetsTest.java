@@ -282,6 +282,40 @@ class SetsTest {
         assertMutable(olderThan7);
     }
 
+
+    @Test
+    void testSorted() {
+        String a = "A";
+        String b = "B";
+        String c = "C";
+        Set<String> list = Set.of(c, a, b);
+        Set<String> sorted = Sets.sorted(list);
+        assertEquals(Set.of(a, b, c), sorted);
+        assertImmutable(sorted);
+    }
+
+    @Test
+    void testSortedComparator() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(c, a, b);
+        Set<Dog> sorted = Sets.sorted(list, Comparator.comparingInt(Dog::getAge));
+        assertEquals(Set.of(a, b, c), sorted);
+        assertImmutable(sorted);
+    }
+
+    @Test
+    void testSortedMutableComparator() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(c, a, b);
+        Set<Dog> sorted = Sets.sortedMutable(list, Comparator.comparingInt(Dog::getAge));
+        assertEquals(Set.of(a, b, c), sorted);
+        assertDoesNotThrow(() -> sorted.add(new Dog(12, "F")));
+    }
+
     @Test
     void testMapToList() {
         Dog a = new Dog(7, "A");
