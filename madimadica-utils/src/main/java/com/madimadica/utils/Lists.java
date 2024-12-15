@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Static helper methods and factories for dealing with Lists.
@@ -461,4 +462,17 @@ public abstract class Lists {
             return partitionBySize(list, preferredPartitionSize);
         }
     }
+
+    /**
+     * Flat-Map a variable number of collections into a single list (immutable).
+     * @param collections varargs of collections to flatten
+     * @return An immutable list of the combined collections
+     * @param <T> Type of collection elements
+     * @throws NullPointerException if any argument of element of an argument is {@code null}
+     */
+    @SafeVarargs
+    public static <T> List<T> flatMap(Collection<T>... collections) {
+        return Stream.of(collections).flatMap(Collection::stream).collect(Collectors.toUnmodifiableList());
+    }
+
 }

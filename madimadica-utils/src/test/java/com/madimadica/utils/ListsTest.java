@@ -621,4 +621,25 @@ class ListsTest {
         assertEquals(List.of(9, 10), partitions.get(4));
     }
 
+    @Test
+    void testFlatMap() {
+        var result = Lists.flatMap(List.of(1, 2, 3), List.of(4, 5, 6), List.of(7, 8, 9));
+        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9), result);
+        assertImmutable(result);
+    }
+
+    @Test
+    void testFlatMap_noArgs() {
+        var result = Lists.flatMap();
+        assertEquals(List.of(), result);
+        assertImmutable(result);
+    }
+
+    @Test
+    void testFlatMap_withNullElements() {
+        assertThrows(NullPointerException.class, () -> Lists.flatMap(List.of(1, 2, 3), Lists.ofNullable(4, null, 6), List.of(7, 8, 9)));
+        assertThrows(NullPointerException.class, () -> Lists.flatMap(List.of(1, 2, 3), null, List.of(7, 8, 9)));
+        assertThrows(NullPointerException.class, () -> Lists.flatMap(null));
+    }
+
 }
