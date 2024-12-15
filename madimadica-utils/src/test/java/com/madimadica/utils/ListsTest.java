@@ -3,6 +3,7 @@ package com.madimadica.utils;
 import com.madimadica.utils.internal.model.Animal;
 import com.madimadica.utils.internal.model.Cat;
 import com.madimadica.utils.internal.model.Dog;
+import com.madimadica.utils.internal.model.GitHubRepo;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -698,5 +699,41 @@ class ListsTest {
                 result
         );
         assertMutable(result);
+    }
+
+    @Test
+    void testGroupBy() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "bar");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "baz");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, "fizz");
+        GitHubRepo repo5 = new GitHubRepo(5, 2, "buzz");
+        List<GitHubRepo> allRepos = List.of(repo1, repo2, repo3, repo4, repo5);
+        Map<Long, List<GitHubRepo>> orgRepos = Lists.groupBy(allRepos, GitHubRepo::getOrgId);
+        assertEquals(2, orgRepos.size());
+        var org1 = orgRepos.get(1L);
+        var org2 = orgRepos.get(2L);
+        assertEquals(List.of(repo1, repo2, repo3), org1);
+        assertEquals(List.of(repo4, repo5), org2);
+        assertMutableMap(orgRepos, 5L);
+        assertMutable(org1);
+    }
+
+    @Test
+    void testGroupBy_nullMapping() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "foo");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "foo");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, null);
+        GitHubRepo repo5 = new GitHubRepo(5, 2, null);
+        List<GitHubRepo> allRepos = List.of(repo1, repo2, repo3, repo4, repo5);
+        Map<String, List<GitHubRepo>> orgRepos = Lists.groupBy(allRepos, GitHubRepo::getName);
+        assertEquals(2, orgRepos.size());
+        var org1 = orgRepos.get("foo");
+        var org2 = orgRepos.get(null);
+        assertEquals(List.of(repo1, repo2, repo3), org1);
+        assertEquals(List.of(repo4, repo5), org2);
+        assertMutableMap(orgRepos, "asdf");
+        assertMutable(org1);
     }
 }

@@ -608,4 +608,30 @@ public abstract class Lists {
         }
         return output;
     }
+
+    /**
+     * Group elements by a key mapping function. All elements with the same mapped key are part of the same group.
+     * <p>
+     *     Returned {@link Map} and {@link List}s are guaranteed mutable with {@link HashMap} and {@link ArrayList} respectively.
+     * </p>
+     * <p>
+     *     Mappings to {@code null} keys are allowed, which differs from {@link Collectors#groupingBy(Function)}
+     * </p>
+     * @param list list of data to cluster
+     * @param classifier how to cluster the data (the key to group on)
+     * @return A mutable Map of Mutable Lists.
+     * @param <K> Type of the key to group on
+     * @param <V> Type of the elements being grouped
+     * @throws NullPointerException if any element of {@code list} is {@code null}.
+     */
+    public static <K, V> Map<K, List<V>> groupBy(List<V> list, Function<? super V, ? extends K> classifier) {
+        Map<K, List<V>> map = new HashMap<>();
+        for (V v : list) {
+            K key = classifier.apply(Objects.requireNonNull(v));
+            List<V> group = map.computeIfAbsent(key, k -> new ArrayList<>());
+            group.add(v);
+        }
+        return map;
+    }
+
 }
