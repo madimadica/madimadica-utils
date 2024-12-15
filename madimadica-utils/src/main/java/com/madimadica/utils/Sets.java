@@ -643,16 +643,52 @@ public abstract class Sets {
     }
 
     /**
+     * Compute the union of two or more sets
+     * @param sets sets to union
+     * @return a new, mutable set, consisting of all the elements in all the sets.
+     * @param <T> Type of the elements
+     */
+    @SafeVarargs
+    public static <T> Set<T> union(Set<T>... sets) {
+        Set<T> union = new HashSet<>();
+        for (Set<T> set : sets) {
+            union.addAll(set);
+        }
+        return union;
+    }
+
+    /**
      * Compute the intersection of two sets
      * @param setA set A
      * @param setB set B
-     * @return a new, mutable set, consisting of all the elements both set A and set B.
+     * @return a new, mutable set, consisting of only the elements in both sets.
      * @param <T> Type of the elements
      */
     public static <T> Set<T> intersection(Set<T> setA, Set<T> setB) {
         Set<T> intersection = new HashSet<>(setA);
         intersection.retainAll(setB);
         return intersection;
+    }
+
+    /**
+     * Compute the intersection of two or more sets
+     * @param sets sets to union
+     * @return a new, mutable set, consisting of only the elements in every set.
+     * @param <T> Type of the elements
+     */
+    @SafeVarargs
+    public static <T> Set<T> intersection(Set<T>... sets) {
+        if (sets.length == 0) {
+            return new HashSet<>();
+        } else if (sets.length == 1) {
+            return new HashSet<>(sets[0]);
+        } else {
+            Set<T> intersection = new HashSet<>(sets[0]);
+            for (int i = 1; i < sets.length; ++i) {
+                intersection.retainAll(sets[i]);
+            }
+            return intersection;
+        }
     }
 
     /**
@@ -680,4 +716,5 @@ public abstract class Sets {
         Set<T> intersection = intersection(setA, setB);
         return difference(union, intersection);
     }
+
 }

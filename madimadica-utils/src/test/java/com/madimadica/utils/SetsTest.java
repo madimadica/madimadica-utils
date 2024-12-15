@@ -566,4 +566,36 @@ class SetsTest {
         assertEquals(Set.of(1, 2, 3, 4), Sets.symmetricDifference(set1, set2), "Symmetric difference should contain all elements from disjoint sets");
     }
 
-}
+    @Test
+    void testUnionVarargs() {
+        Set<Integer> set1 = Set.of(1, 2);
+        Set<Integer> set2 = Set.of(3, 4);
+        Set<Integer> set3 = Set.of(5, 6);
+        Set<Integer> expected = Set.of(1, 2, 3, 4, 5, 6);
+
+        Set<Integer> result = Sets.union(set1, set2, set3);
+        assertEquals(expected, result, "Union should contain all elements from multiple sets");
+    }
+
+    @Test
+    void testIntersectionVarargs() {
+        Set<Integer> set1 = Set.of(1, 2, 3);
+        Set<Integer> set2 = Set.of(2, 3, 4);
+        Set<Integer> set3 = Set.of(3, 4, 5);
+        Set<Integer> expected = Set.of(3);
+
+        Set<Integer> result = Sets.intersection(set1, set2, set3);
+        assertEquals(expected, result, "Intersection should contain only common elements from all sets");
+    }
+
+    @Test
+    void testUnionEmptyVarargs() {
+        Set<Integer> result = Sets.union();
+        assertEquals(Set.of(), result, "Union of no sets should be empty");
+    }
+
+    @Test
+    void testIntersectionEmptyVarargs() {
+        Set<Integer> result = Sets.intersection();
+        assertEquals(Set.of(), result, "Intersection of no sets should be empty");
+    }}
