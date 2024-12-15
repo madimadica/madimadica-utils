@@ -267,4 +267,36 @@ public abstract class Lists {
         return set;
     }
 
+    /**
+     * Convert a list of elements to a mapping of those same elements by the given {@code keyMapper}.
+     * The result is an immutable Map.
+     * @param list Elements to turn into a {@link Map}
+     * @param keyMapper Function to determine the key of an element/entry. This mapping should return a unique value per element.
+     * @return An immutable map from the extracted keys to the original values
+     * @param <K> Type of the resulting entry keys
+     * @param <V> Type of the resulting entry values, also the type of the input list
+     * @throws IllegalStateException If the extracted keys are not unique
+     * @throws NullPointerException If any extracted key is {@code null}, if the mapper is {@code null}, or if any list element is {@code null}.
+     */
+    public static <K, V> Map<K, V> toMap(List<V> list, Function<? super V, ? extends K> keyMapper) {
+        return list.stream().collect(Collectors.toUnmodifiableMap(keyMapper, Function.identity()));
+    }
+
+    /**
+     * Convert a list of elements to a mapping of those same elements by the given {@code keyMapper} and {@code valueMapper}.
+     * The result is an immutable Map.
+     * @param list Elements to turn into a {@link Map}
+     * @param keyMapper Function to determine the key of an element/entry. This mapping should return a unique value per element.
+     * @param valueMapper Function to determine the value of an element/entry. This cannot map to {@code null}.
+     * @return An immutable map of the computed key-value pairs
+     * @param <T> Type of the original list elements
+     * @param <K> Type of the resulting entry keys
+     * @param <V> Type of the resulting entry values
+     * @throws IllegalStateException If the extracted keys are not unique
+     * @throws NullPointerException If any extracted key or value is {@code null}, if either mapper is {@code null}, or if any list element is {@code null}.
+     */
+    public static <T, K, V> Map<K, V> toMap(List<T> list, Function<? super T, ? extends K> keyMapper, Function<? super T, ? extends V> valueMapper) {
+        return list.stream().collect(Collectors.toUnmodifiableMap(keyMapper, valueMapper));
+    }
+
 }

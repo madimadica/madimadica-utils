@@ -5,10 +5,7 @@ import com.madimadica.utils.internal.model.Cat;
 import com.madimadica.utils.internal.model.Dog;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +18,15 @@ class ListsTest {
 
     private void assertMutable(Collection<?> list) {
         assertDoesNotThrow(() -> list.add(null));
+    }
+
+    private <K> void assertImmutableMap(Map<K, ?> map, K key) {
+        assertThrows(UnsupportedOperationException.class, () ->  map.put(key, null));
+    }
+
+
+    private <K> void assertMutableMap(Map<K, ?> map, K key) {
+        assertDoesNotThrow(() -> map.put(key, null));
     }
 
     @Test
@@ -285,6 +291,34 @@ class ListsTest {
         assertEquals(2, ages.size());
         assertEquals(Set.of(7, 8), ages);
         assertMutable(ages);
+    }
+
+    @Test
+    void testToMapK() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        var ageMap = Lists.toMap(list, Dog::getAge);
+        assertEquals(3, ageMap.size());
+        assertEquals(a, ageMap.get(7));
+        assertEquals(b, ageMap.get(8));
+        assertEquals(c, ageMap.get(9));
+        assertImmutableMap(ageMap, 10);
+    }
+
+    @Test
+    void testToMapKV() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        var ageNameMap = Lists.toMap(list, Dog::getAge, Dog::getName);
+        assertEquals(3, ageNameMap.size());
+        assertEquals("A", ageNameMap.get(7));
+        assertEquals("B", ageNameMap.get(8));
+        assertEquals("C", ageNameMap.get(9));
+        assertImmutableMap(ageNameMap, 10);
     }
 
 }
