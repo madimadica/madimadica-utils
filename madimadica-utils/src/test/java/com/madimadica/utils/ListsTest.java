@@ -321,4 +321,32 @@ class ListsTest {
         assertImmutableMap(ageNameMap, 10);
     }
 
+    @Test
+    void testToMutableMapK() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        var ageMap = Lists.toMutableMap(list, Dog::getAge);
+        assertEquals(3, ageMap.size());
+        assertEquals(a, ageMap.get(7));
+        assertEquals(b, ageMap.get(8));
+        assertEquals(c, ageMap.get(9));
+        assertMutableMap(ageMap, 10);
+    }
+
+    @Test
+    void testToMutableMapKV() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(a, b, c);
+        var ageNameMap = Lists.toMutableMap(list, Dog::getAge, Dog::getName);
+        assertEquals(3, ageNameMap.size());
+        assertEquals("A", ageNameMap.get(7));
+        assertEquals("B", ageNameMap.get(8));
+        assertEquals("C", ageNameMap.get(9));
+        assertMutableMap(ageNameMap, 10);
+    }
+
 }
