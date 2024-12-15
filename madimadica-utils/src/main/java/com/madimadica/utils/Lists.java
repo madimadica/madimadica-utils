@@ -475,4 +475,64 @@ public abstract class Lists {
         return Stream.of(collections).flatMap(Collection::stream).collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * <p>
+     *     Create an immutable, non-null List from the given iterable.
+     * </p>
+     * <p>
+     *     Does not allow {@code null} elements.
+     * </p>
+     * @param iterable element source
+     * @return Immutable list of elements
+     * @param <T> Type of list elements
+     * @throws NullPointerException if {@code iterable} or any element is {@code null}.
+     */
+    public static <T> List<T> ofIterable(Iterable<T> iterable) {
+        List<T> output = new ArrayList<>();
+        for (T t : iterable) {
+            output.add(Objects.requireNonNull(t));
+        }
+        return Collections.unmodifiableList(output);
+    }
+
+    /**
+     * <p>
+     *     Create an immutable, nullable List from the given iterable.
+     * </p>
+     * <p>
+     *     Allows for {@code null} elements.
+     * </p>
+     * @param iterable element source
+     * @return Immutable list of elements
+     * @param <T> Type of list elements
+     * @throws NullPointerException if {@code iterable} is {@code null}.
+     */
+    public static <T> List<T> ofIterableNullable(Iterable<T> iterable) {
+        List<T> output = new ArrayList<>();
+        for (T t : iterable) {
+            output.add(t);
+        }
+        return Collections.unmodifiableList(output);
+    }
+
+    /**
+     * <p>
+     *     Create a mutable, nullable List from the given iterable.
+     * </p>
+     * <p>
+     *     Allows for {@code null} elements.
+     * </p>
+     * @param iterable element source
+     * @return Mutable list of elements
+     * @param <T> Type of list elements
+     * @throws NullPointerException if {@code iterable} is {@code null}.
+     */
+    public static <T> List<T> ofIterableMutable(Iterable<T> iterable) {
+        List<T> output = new ArrayList<>();
+        for (T t : iterable) {
+            output.add(t);
+        }
+        return output;
+    }
+
 }

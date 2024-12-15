@@ -642,4 +642,26 @@ class ListsTest {
         assertThrows(NullPointerException.class, () -> Lists.flatMap(null));
     }
 
+    @Test
+    void testOfIterable() {
+        assertThrows(NullPointerException.class, () -> Lists.ofIterable(Lists.ofNullable(1, null, 2)));
+        var list = Lists.ofIterable(List.of(1, 2, 3));
+        assertEquals(List.of(1, 2, 3), list);
+        assertImmutable(list);
+    }
+
+    @Test
+    void testOfIterableNullable() {
+        var list = Lists.ofIterableNullable(Lists.ofNullable(1, null, 2));
+        assertEquals(Lists.ofNullable(1, null, 2), list);
+        assertImmutable(list);
+    }
+
+    @Test
+    void testOfIterableMutable() {
+        var list = Lists.ofIterableMutable(Lists.ofNullable(1, null, 2));
+        assertEquals(Lists.ofNullable(1, null, 2), list);
+        assertMutable(list);
+    }
+
 }
