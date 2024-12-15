@@ -430,6 +430,31 @@ public class MapsTest {
     }
 
     @Test
+    void ofNullableEntries_whenNullArg_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofNullableEntries(null));
+    }
+
+    @Test
+    void ofNullableEntries_whenNullKey_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofNullableEntries(Maps.entry(null, 1)));
+    }
+
+    @Test
+    void ofNullableEntries_whenDuplicateKey_thenThrow() {
+        assertThrows(IllegalArgumentException.class, () -> Maps.ofNullableEntries(Maps.entry(1, "one"), Maps.entry(1, "ONE")));
+    }
+
+    @Test
+    void ofNullableEntries_whenNullValue_thenDontThrow() {
+        assertDoesNotThrow(() -> Maps.ofNullableEntries(Maps.entry(1, null)));
+    }
+
+    @Test
+    void ofNullableEntries_whenMutate_thenThrow() {
+        Map<Integer, String> map = Maps.ofNullableEntries(Maps.entry(1, "one"));
+        assertThrows(UnsupportedOperationException.class, () -> map.put(2, "two"));
+    }
+    @Test
     void ofMutable1() {
         Map<Integer, String> map = Maps.ofMutable(1, "one");
         assertEquals(1, map.size());
@@ -847,6 +872,31 @@ public class MapsTest {
         assertDoesNotThrow(() -> Maps.ofMutable(1, "one", 2, "two", 3, "three", 4, "four", 5, "five", 6, "six", 7, "seven", 8, "eight", 9, "nine", 10, "ten", 11, "eleven", 12, "twelve").put(0, "zero"));
     }
 
+    @Test
+    void ofMutableEntries_whenNullArg_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofMutableEntries(null));
+    }
+
+    @Test
+    void ofMutableEntries_whenNullKey_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofMutableEntries(Maps.entry(null, 1)));
+    }
+
+    @Test
+    void ofMutableEntries_whenDuplicateKey_thenThrow() {
+        assertThrows(IllegalArgumentException.class, () -> Maps.ofMutableEntries(Maps.entry(1, "one"), Maps.entry(1, "ONE")));
+    }
+
+    @Test
+    void ofMutableEntries_whenNullValue_thenDontThrow() {
+        assertDoesNotThrow(() -> Maps.ofMutableEntries(Maps.entry(1, null)));
+    }
+
+    @Test
+    void ofMutableEntries_whenMutate_thenDontThrow() {
+        Map<Integer, String> map = Maps.ofMutableEntries(Maps.entry(1, "one"));
+        assertDoesNotThrow(() -> map.put(2, "two"));
+    }
     @Test
     void ofOrdered1() {
         Map<Integer, String> map = Maps.ofOrdered(1, "one");
@@ -1494,6 +1544,63 @@ public class MapsTest {
     }
 
     @Test
+    void ofOrderedEntries_whenNullArg_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedEntries(null));
+    }
+
+    @Test
+    void ofOrderedEntries_whenNullKey_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedEntries(Maps.entry(null, 1)));
+    }
+
+    @Test
+    void ofOrderedEntries_whenDuplicateKey_thenThrow() {
+        assertThrows(IllegalArgumentException.class, () -> Maps.ofOrderedEntries(Maps.entry(1, "one"), Maps.entry(1, "ONE")));
+    }
+
+    @Test
+    void ofOrderedEntries_whenNullValue_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedEntries(Maps.entry(1, null)));
+    }
+
+    @Test
+    void ofOrderedEntries_whenMutate_thenThrow() {
+        Map<Integer, String> map = Maps.ofOrderedEntries(Maps.entry(1, "one"));
+        assertThrows(UnsupportedOperationException.class, () -> map.put(2, "two"));
+    }
+
+    @Test
+    void ofOrderedEntries_thenOrdered() {
+        Map<Integer, String> map = Maps.ofOrderedEntries(Maps.entry(1, "one"), Maps.entry(2, "two"), Maps.entry(3, "three"), Maps.entry(4, "four"), Maps.entry(5, "five"), Maps.entry(6, "six"), Maps.entry(7, "seven"), Maps.entry(8, "eight"), Maps.entry(9, "nine"), Maps.entry(10, "ten"), Maps.entry(11, "eleven"), Maps.entry(12, "twelve"), Maps.entry(13, "thirteen"));
+        var entryList = new ArrayList<>(map.entrySet());
+        assertEquals(1, entryList.get(0).getKey());
+        assertEquals(2, entryList.get(1).getKey());
+        assertEquals(3, entryList.get(2).getKey());
+        assertEquals(4, entryList.get(3).getKey());
+        assertEquals(5, entryList.get(4).getKey());
+        assertEquals(6, entryList.get(5).getKey());
+        assertEquals(7, entryList.get(6).getKey());
+        assertEquals(8, entryList.get(7).getKey());
+        assertEquals(9, entryList.get(8).getKey());
+        assertEquals(10, entryList.get(9).getKey());
+        assertEquals(11, entryList.get(10).getKey());
+        assertEquals(12, entryList.get(11).getKey());
+        assertEquals(13, entryList.get(12).getKey());
+        assertEquals("one",      entryList.get(0).getValue());
+        assertEquals("two",      entryList.get(1).getValue());
+        assertEquals("three",    entryList.get(2).getValue());
+        assertEquals("four",     entryList.get(3).getValue());
+        assertEquals("five",     entryList.get(4).getValue());
+        assertEquals("six",      entryList.get(5).getValue());
+        assertEquals("seven",    entryList.get(6).getValue());
+        assertEquals("eight",    entryList.get(7).getValue());
+        assertEquals("nine",     entryList.get(8).getValue());
+        assertEquals("ten",      entryList.get(9).getValue());
+        assertEquals("eleven",   entryList.get(10).getValue());
+        assertEquals("twelve",   entryList.get(11).getValue());
+        assertEquals("thirteen", entryList.get(12).getValue());
+    }
+    @Test
     void ofOrderedNullable1() {
         Map<Integer, String> map = Maps.ofOrderedNullable(1, "one");
         assertEquals(1, map.size());
@@ -2140,6 +2247,63 @@ public class MapsTest {
     }
 
     @Test
+    void ofOrderedNullableEntries_whenNullArg_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedNullableEntries(null));
+    }
+
+    @Test
+    void ofOrderedNullableEntries_whenNullKey_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedNullableEntries(Maps.entry(null, 1)));
+    }
+
+    @Test
+    void ofOrderedNullableEntries_whenDuplicateKey_thenThrow() {
+        assertThrows(IllegalArgumentException.class, () -> Maps.ofOrderedNullableEntries(Maps.entry(1, "one"), Maps.entry(1, "ONE")));
+    }
+
+    @Test
+    void ofOrderedNullableEntries_whenNullValue_thenDontThrow() {
+        assertDoesNotThrow(() -> Maps.ofOrderedNullableEntries(Maps.entry(1, null)));
+    }
+
+    @Test
+    void ofOrderedNullableEntries_whenMutate_thenThrow() {
+        Map<Integer, String> map = Maps.ofOrderedNullableEntries(Maps.entry(1, "one"));
+        assertThrows(UnsupportedOperationException.class, () -> map.put(2, "two"));
+    }
+
+    @Test
+    void ofOrderedNullableEntries_thenOrdered() {
+        Map<Integer, String> map = Maps.ofOrderedNullableEntries(Maps.entry(1, "one"), Maps.entry(2, "two"), Maps.entry(3, "three"), Maps.entry(4, "four"), Maps.entry(5, "five"), Maps.entry(6, "six"), Maps.entry(7, "seven"), Maps.entry(8, "eight"), Maps.entry(9, "nine"), Maps.entry(10, "ten"), Maps.entry(11, "eleven"), Maps.entry(12, "twelve"), Maps.entry(13, "thirteen"));
+        var entryList = new ArrayList<>(map.entrySet());
+        assertEquals(1, entryList.get(0).getKey());
+        assertEquals(2, entryList.get(1).getKey());
+        assertEquals(3, entryList.get(2).getKey());
+        assertEquals(4, entryList.get(3).getKey());
+        assertEquals(5, entryList.get(4).getKey());
+        assertEquals(6, entryList.get(5).getKey());
+        assertEquals(7, entryList.get(6).getKey());
+        assertEquals(8, entryList.get(7).getKey());
+        assertEquals(9, entryList.get(8).getKey());
+        assertEquals(10, entryList.get(9).getKey());
+        assertEquals(11, entryList.get(10).getKey());
+        assertEquals(12, entryList.get(11).getKey());
+        assertEquals(13, entryList.get(12).getKey());
+        assertEquals("one",      entryList.get(0).getValue());
+        assertEquals("two",      entryList.get(1).getValue());
+        assertEquals("three",    entryList.get(2).getValue());
+        assertEquals("four",     entryList.get(3).getValue());
+        assertEquals("five",     entryList.get(4).getValue());
+        assertEquals("six",      entryList.get(5).getValue());
+        assertEquals("seven",    entryList.get(6).getValue());
+        assertEquals("eight",    entryList.get(7).getValue());
+        assertEquals("nine",     entryList.get(8).getValue());
+        assertEquals("ten",      entryList.get(9).getValue());
+        assertEquals("eleven",   entryList.get(10).getValue());
+        assertEquals("twelve",   entryList.get(11).getValue());
+        assertEquals("thirteen", entryList.get(12).getValue());
+    }
+    @Test
     void ofOrderedMutable1() {
         Map<Integer, String> map = Maps.ofOrderedMutable(1, "one");
         assertEquals(1, map.size());
@@ -2785,6 +2949,63 @@ public class MapsTest {
         assertDoesNotThrow(() -> Maps.ofOrderedMutable(1, "one", 2, "two", 3, "three", 4, "four", 5, "five", 6, "six", 7, "seven", 8, "eight", 9, "nine", 10, "ten", 11, "eleven", 12, "twelve").put(0, "zero"));
     }
 
+    @Test
+    void ofOrderedMutableEntries_whenNullArg_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedMutableEntries(null));
+    }
+
+    @Test
+    void ofOrderedMutableEntries_whenNullKey_thenThrow() {
+        assertThrows(NullPointerException.class, () -> Maps.ofOrderedMutableEntries(Maps.entry(null, 1)));
+    }
+
+    @Test
+    void ofOrderedMutableEntries_whenDuplicateKey_thenThrow() {
+        assertThrows(IllegalArgumentException.class, () -> Maps.ofOrderedMutableEntries(Maps.entry(1, "one"), Maps.entry(1, "ONE")));
+    }
+
+    @Test
+    void ofOrderedMutableEntries_whenNullValue_thenDontThrow() {
+        assertDoesNotThrow(() -> Maps.ofOrderedMutableEntries(Maps.entry(1, null)));
+    }
+
+    @Test
+    void ofOrderedMutableEntries_whenMutate_thenDontThrow() {
+        Map<Integer, String> map = Maps.ofOrderedMutableEntries(Maps.entry(1, "one"));
+        assertDoesNotThrow(() -> map.put(2, "two"));
+    }
+
+    @Test
+    void ofOrderedMutableEntries_thenOrdered() {
+        Map<Integer, String> map = Maps.ofOrderedMutableEntries(Maps.entry(1, "one"), Maps.entry(2, "two"), Maps.entry(3, "three"), Maps.entry(4, "four"), Maps.entry(5, "five"), Maps.entry(6, "six"), Maps.entry(7, "seven"), Maps.entry(8, "eight"), Maps.entry(9, "nine"), Maps.entry(10, "ten"), Maps.entry(11, "eleven"), Maps.entry(12, "twelve"), Maps.entry(13, "thirteen"));
+        var entryList = new ArrayList<>(map.entrySet());
+        assertEquals(1, entryList.get(0).getKey());
+        assertEquals(2, entryList.get(1).getKey());
+        assertEquals(3, entryList.get(2).getKey());
+        assertEquals(4, entryList.get(3).getKey());
+        assertEquals(5, entryList.get(4).getKey());
+        assertEquals(6, entryList.get(5).getKey());
+        assertEquals(7, entryList.get(6).getKey());
+        assertEquals(8, entryList.get(7).getKey());
+        assertEquals(9, entryList.get(8).getKey());
+        assertEquals(10, entryList.get(9).getKey());
+        assertEquals(11, entryList.get(10).getKey());
+        assertEquals(12, entryList.get(11).getKey());
+        assertEquals(13, entryList.get(12).getKey());
+        assertEquals("one",      entryList.get(0).getValue());
+        assertEquals("two",      entryList.get(1).getValue());
+        assertEquals("three",    entryList.get(2).getValue());
+        assertEquals("four",     entryList.get(3).getValue());
+        assertEquals("five",     entryList.get(4).getValue());
+        assertEquals("six",      entryList.get(5).getValue());
+        assertEquals("seven",    entryList.get(6).getValue());
+        assertEquals("eight",    entryList.get(7).getValue());
+        assertEquals("nine",     entryList.get(8).getValue());
+        assertEquals("ten",      entryList.get(9).getValue());
+        assertEquals("eleven",   entryList.get(10).getValue());
+        assertEquals("twelve",   entryList.get(11).getValue());
+        assertEquals("thirteen", entryList.get(12).getValue());
+    }
     @Test
     void copyOfNullable1_whenCopy_thenEqualAndNotSame() {
         Map<Integer, String> map1 = Maps.ofNullable(1, "one");

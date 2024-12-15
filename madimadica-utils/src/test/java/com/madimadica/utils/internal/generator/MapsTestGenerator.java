@@ -24,7 +24,8 @@ public class MapsTestGenerator {
             entry(9, "nine"),
             entry(10, "ten"),
             entry(11, "eleven"),
-            entry(12, "twelve")
+            entry(12, "twelve"),
+            entry(13, "thirteen")
     );
 
     private static String genTest(String testMethodName, List<String> bodyLines) {
@@ -80,7 +81,41 @@ public class MapsTestGenerator {
         }
         sj.add(testAllMutability(srcMethodName, mutable));
         sj.add("");
+        sj.add(testEntries(srcMethodName, mutable, nullable, ordered));
         return sj.toString();
+    }
+
+    private static String testEntries(String srcMethodName, boolean mutable, boolean nullable, boolean ordered) {
+        List<String> lines = new ArrayList<>();
+        String fullMethodName = srcMethodName + "Entries";
+        lines.add(genTest(fullMethodName + "_whenNullArg_thenThrow", List.of("assertThrows(NullPointerException.class, () -> Maps." + fullMethodName + "(null));")));
+        lines.add("");
+        lines.add(genTest(fullMethodName + "_whenNullKey_thenThrow", List.of("assertThrows(NullPointerException.class, () -> Maps." + fullMethodName + "(Maps.entry(null, 1)));")));
+        lines.add("");
+        lines.add(genTest(fullMethodName + "_whenDuplicateKey_thenThrow", List.of("assertThrows(IllegalArgumentException.class, () -> Maps." + fullMethodName + "(Maps.entry(1, \"one\"), Maps.entry(1, \"ONE\")));")));
+        lines.add("");
+        if (nullable) {
+            lines.add(genTest(fullMethodName + "_whenNullValue_thenDontThrow", List.of("assertDoesNotThrow(() -> Maps." + fullMethodName + "(Maps.entry(1, null)));")));
+        } else {
+            lines.add(genTest(fullMethodName + "_whenNullValue_thenThrow", List.of("assertThrows(NullPointerException.class, () -> Maps." + fullMethodName + "(Maps.entry(1, null)));")));
+        }
+        lines.add("");
+        if (mutable) {
+            lines.add(genTest(fullMethodName + "_whenMutate_thenDontThrow", List.of(
+                    "Map<Integer, String> map = Maps." + fullMethodName + "(Maps.entry(1, \"one\"));",
+                    "assertDoesNotThrow(() -> map.put(2, \"two\"));"
+            )));
+        } else {
+            lines.add(genTest(fullMethodName + "_whenMutate_thenThrow", List.of(
+                    "Map<Integer, String> map = Maps." + fullMethodName + "(Maps.entry(1, \"one\"));",
+                    "assertThrows(UnsupportedOperationException.class, () -> map.put(2, \"two\"));"
+            )));
+        }
+        if (ordered) {
+            lines.add("");
+            lines.add(testEntriesOrdering(fullMethodName, 13));
+        }
+        return String.join("\n", lines);
     }
 
     private static String allCopyTestsFor(String srcMethodName, boolean mutable, boolean nullable, boolean ordered) {
@@ -111,8 +146,20 @@ public class MapsTestGenerator {
         return factoryInvocation.toString();
     }
 
+    private static String getEntriesFactoryCall(String srcMethodName, int entrySize) {
+        StringJoiner factoryInvocation = new StringJoiner(", ", "Maps." + srcMethodName + "(", ")");
+        for (int i = 1; i <= entrySize; ++i) {
+            factoryInvocation.add("Maps.entry(" + i + ", \"" + NUMBER_NAME_MAP.get(i) + "\")");
+        }
+        return factoryInvocation.toString();
+    }
+
     private static String getNormalFactoryInit(String srcMethodName, int entrySize) {
         return "Map<Integer, String> map = " + getNormalFactoryCall(srcMethodName, entrySize) + ";";
+    }
+
+    private static String getEntriesFactoryInit(String srcMethodName, int entrySize) {
+        return "Map<Integer, String> map = " + getEntriesFactoryCall(srcMethodName, entrySize) + ";";
     }
 
     /**
@@ -198,6 +245,18 @@ public class MapsTestGenerator {
     private static String testOrdering(String srcMethodName, int entrySize) {
         List<String> lines = new ArrayList<>();
         lines.add(getNormalFactoryInit(srcMethodName, entrySize));
+        addTestOrderingAsserts(lines, entrySize);
+        return genTest(srcMethodName + entrySize + "_thenOrdered", lines);
+    }
+
+    private static String testEntriesOrdering(String srcMethodName, int entrySize) {
+        List<String> lines = new ArrayList<>();
+        lines.add(getEntriesFactoryInit(srcMethodName, entrySize));
+        addTestOrderingAsserts(lines, entrySize);
+        return genTest(srcMethodName + "_thenOrdered", lines);
+    }
+
+    private static void addTestOrderingAsserts(List<String> lines, int entrySize) {
         lines.add("var entryList = new ArrayList<>(map.entrySet());");
         for (int i = 1; i <= entrySize; ++i) {
             lines.add("assertEquals(" + i + ", entryList.get(" + (i - 1) + ").getKey());");
@@ -210,7 +269,6 @@ public class MapsTestGenerator {
             String numberPadding = String.format("%-" + (maxWidth + 3) + "s", '"' + NUMBER_NAME_MAP.get(i) + "\",");
             lines.add("assertEquals(" + numberPadding + " entryList.get(" + (i - 1) + ").getValue());");
         }
-        return genTest(srcMethodName + entrySize + "_thenOrdered", lines);
     }
 
     private static String testCopyFactoryCopies(String srcMethodName, int i) {

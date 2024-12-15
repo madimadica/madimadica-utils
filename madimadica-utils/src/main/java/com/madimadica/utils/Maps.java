@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Static utilities for Maps.
@@ -2206,6 +2208,166 @@ public abstract class Maps {
     }
 
     /**
+     * <p>Returns a nullable map containing the keys and values from the given entries.</p>
+     * <p>The keys may <strong>not</strong> be {@code null}.</p>
+     * <p>The values may be {@code null}.</p>
+     * @param <K> key type
+     * @param <V> key type
+     * @param entries {@code Map.Entry}s containing the key-value pairs to insert into the new map.
+     * @return a nullable map containing the specified key-value pairs.
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if the {@code entries} argument is {@code null} or any key is {@code null}
+     * 
+     * @see Map#entry
+     * @see Maps#entry
+     * @since 1.0
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> ofNullableEntries(Map.Entry<? extends K, ? extends V>... entries) {
+        Objects.requireNonNull(entries);
+        Map<K, V> map = new HashMap<>(entries.length);
+        List<Map.Entry<? extends K, ? extends V>> entryList = List.of(entries);
+        int prevSize = 0;
+        for (Map.Entry<? extends K, ? extends V> entry : entryList) {
+            K key = Objects.requireNonNull(entry.getKey());
+            V value = entry.getValue();
+            map.put(key, value);
+            if (map.size() != ++prevSize) {
+                throw new IllegalArgumentException("Duplicate key: \"" + key + "\" not allowed.");
+            }
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    /**
+     * <p>Returns a mutable map containing the keys and values from the given entries.</p>
+     * <p>The keys may <strong>not</strong> be {@code null}.</p>
+     * <p>The values may be {@code null}.</p>
+     * @param <K> key type
+     * @param <V> key type
+     * @param entries {@code Map.Entry}s containing the key-value pairs to insert into the new map.
+     * @return a mutable map containing the specified key-value pairs.
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if the {@code entries} argument is {@code null} or any key is {@code null}
+     * 
+     * @see Map#entry
+     * @see Maps#entry
+     * @since 1.0
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> ofMutableEntries(Map.Entry<? extends K, ? extends V>... entries) {
+        Objects.requireNonNull(entries);
+        Map<K, V> map = new HashMap<>(entries.length);
+        List<Map.Entry<? extends K, ? extends V>> entryList = List.of(entries);
+        int prevSize = 0;
+        for (Map.Entry<? extends K, ? extends V> entry : entryList) {
+            K key = Objects.requireNonNull(entry.getKey());
+            V value = entry.getValue();
+            map.put(key, value);
+            if (map.size() != ++prevSize) {
+                throw new IllegalArgumentException("Duplicate key: \"" + key + "\" not allowed.");
+            }
+        }
+        return map;
+    }
+
+    /**
+     * <p>Returns an ordered map containing the keys and values from the given entries.</p>
+     * <p>The keys may <strong>not</strong> be {@code null}.</p>
+     * <p>The values may <strong>not</strong> be {@code null}.</p>
+     * @param <K> key type
+     * @param <V> key type
+     * @param entries {@code Map.Entry}s containing the key-value pairs to insert into the new map.
+     * @return an ordered map containing the specified key-value pairs.
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if the {@code entries} argument is {@code null}, if any key is {@code null}, or any value is {@code null}
+     * 
+     * @see Map#entry
+     * @see Maps#entry
+     * @since 1.0
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> ofOrderedEntries(Map.Entry<? extends K, ? extends V>... entries) {
+        Objects.requireNonNull(entries);
+        Map<K, V> map = new LinkedHashMap<>(entries.length);
+        List<Map.Entry<? extends K, ? extends V>> entryList = List.of(entries);
+        int prevSize = 0;
+        for (Map.Entry<? extends K, ? extends V> entry : entryList) {
+            K key = Objects.requireNonNull(entry.getKey());
+            V value = Objects.requireNonNull(entry.getValue());
+            map.put(key, value);
+            if (map.size() != ++prevSize) {
+                throw new IllegalArgumentException("Duplicate key: \"" + key + "\" not allowed.");
+            }
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    /**
+     * <p>Returns an ordered, nullable map containing the keys and values from the given entries.</p>
+     * <p>The keys may <strong>not</strong> be {@code null}.</p>
+     * <p>The values may be {@code null}.</p>
+     * @param <K> key type
+     * @param <V> key type
+     * @param entries {@code Map.Entry}s containing the key-value pairs to insert into the new map.
+     * @return an ordered, nullable map containing the specified key-value pairs.
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if the {@code entries} argument is {@code null} or any key is {@code null}
+     * 
+     * @see Map#entry
+     * @see Maps#entry
+     * @since 1.0
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> ofOrderedNullableEntries(Map.Entry<? extends K, ? extends V>... entries) {
+        Objects.requireNonNull(entries);
+        Map<K, V> map = new LinkedHashMap<>(entries.length);
+        List<Map.Entry<? extends K, ? extends V>> entryList = List.of(entries);
+        int prevSize = 0;
+        for (Map.Entry<? extends K, ? extends V> entry : entryList) {
+            K key = Objects.requireNonNull(entry.getKey());
+            V value = entry.getValue();
+            map.put(key, value);
+            if (map.size() != ++prevSize) {
+                throw new IllegalArgumentException("Duplicate key: \"" + key + "\" not allowed.");
+            }
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    /**
+     * <p>Returns an ordered, mutable map containing the keys and values from the given entries.</p>
+     * <p>The keys may <strong>not</strong> be {@code null}.</p>
+     * <p>The values may be {@code null}.</p>
+     * @param <K> key type
+     * @param <V> key type
+     * @param entries {@code Map.Entry}s containing the key-value pairs to insert into the new map.
+     * @return an ordered, mutable map containing the specified key-value pairs.
+     * @throws IllegalArgumentException if there are any duplicate keys
+     * @throws NullPointerException if the {@code entries} argument is {@code null} or any key is {@code null}
+     * 
+     * @see Map#entry
+     * @see Maps#entry
+     * @since 1.0
+     */
+    @SafeVarargs
+    public static <K, V> Map<K, V> ofOrderedMutableEntries(Map.Entry<? extends K, ? extends V>... entries) {
+        Objects.requireNonNull(entries);
+        Map<K, V> map = new LinkedHashMap<>(entries.length);
+        List<Map.Entry<? extends K, ? extends V>> entryList = List.of(entries);
+        int prevSize = 0;
+        for (Map.Entry<? extends K, ? extends V> entry : entryList) {
+            K key = Objects.requireNonNull(entry.getKey());
+            V value = entry.getValue();
+            map.put(key, value);
+            if (map.size() != ++prevSize) {
+                throw new IllegalArgumentException("Duplicate key: \"" + key + "\" not allowed.");
+            }
+        }
+        return map;
+    }
+
+    /**
      * Creates an unordered immutable copy of the given map.
      * <br>
      * The keys must <strong>not</strong> be {@code null}.
@@ -2257,6 +2419,37 @@ public abstract class Maps {
         }
         Map<K, V> map = new LinkedHashMap<>(mapToCopy);
         return Collections.unmodifiableMap(map);
+    }
+
+
+    public static <K, V> Maps.Entry<K, V> entry(K key, V value) {
+        return new Maps.Entry<>(key, value);
+    }
+    
+    public static class Entry<K, V> implements Map.Entry<K, V> {
+        
+        private final K key;
+        private final V value;
+        
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        @Override
+        public K getKey() {
+            return key;
+        }
+
+        @Override
+        public V getValue() {
+            return value;
+        }
+
+        @Override
+        public V setValue(V value) {
+            throw new UnsupportedOperationException();
+        }
     }
 
 }
