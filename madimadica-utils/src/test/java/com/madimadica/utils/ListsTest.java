@@ -5,19 +5,21 @@ import com.madimadica.utils.internal.model.Cat;
 import com.madimadica.utils.internal.model.Dog;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ListsTest {
 
-    private void assertImmutable(List<?> list) {
+    private void assertImmutable(Collection<?> list) {
         assertThrows(UnsupportedOperationException.class, () -> list.add(null));
     }
 
 
-    private void assertMutable(List<?> list) {
+    private void assertMutable(Collection<?> list) {
         assertDoesNotThrow(() -> list.add(null));
     }
 
@@ -259,6 +261,30 @@ class ListsTest {
         List<Dog> reversed = Lists.reversedMutable(list);
         assertEquals(List.of(c, b, a), reversed);
         assertMutable(reversed);
+    }
+
+    @Test
+    void testMapToSet() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(7, "C");
+        List<Dog> dogs = List.of(a, b, c);
+        Set<Integer> ages = Lists.mapToSet(dogs, Animal::getAge);
+        assertEquals(2, ages.size());
+        assertEquals(Set.of(7, 8), ages);
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMapToMutableSet() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(7, "C");
+        List<Dog> dogs = List.of(a, b, c);
+        Set<Integer> ages = Lists.mapToMutableSet(dogs, Animal::getAge);
+        assertEquals(2, ages.size());
+        assertEquals(Set.of(7, 8), ages);
+        assertMutable(ages);
     }
 
 }

@@ -241,4 +241,30 @@ public abstract class Lists {
         return copy;
     }
 
+    /**
+     * Map a list to an immutable set by a given mapping function.
+     * @param list list to map elements from
+     * @param mapper function to map each element by
+     * @return an immutable set of mapped elements
+     * @param <X> type of input list elements
+     * @param <Y> type of output set elements
+     */
+    public static <X, Y> Set<Y> mapToSet(List<X> list, Function<? super X, ? extends Y> mapper) {
+        return list.stream().map(mapper).collect(Collectors.toUnmodifiableSet());
+    }
+
+    /**
+     * Map a list to a mutable set by a given mapping function.
+     * @param list list to map elements from
+     * @param mapper function to map each element by
+     * @return an mutable set of mapped elements
+     * @param <X> type of input list elements
+     * @param <Y> type of output set elements
+     */
+    public static <X, Y> Set<Y> mapToMutableSet(List<X> list, Function<? super X, ? extends Y> mapper) {
+        Set<Y> set = new HashSet<>();
+        list.forEach(x -> set.add(mapper.apply(x)));
+        return set;
+    }
+
 }
