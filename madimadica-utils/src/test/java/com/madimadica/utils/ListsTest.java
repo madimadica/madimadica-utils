@@ -1,9 +1,6 @@
 package com.madimadica.utils;
 
-import com.madimadica.utils.internal.model.Animal;
-import com.madimadica.utils.internal.model.Cat;
-import com.madimadica.utils.internal.model.Dog;
-import com.madimadica.utils.internal.model.GitHubRepo;
+import com.madimadica.utils.internal.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -771,5 +768,30 @@ class ListsTest {
         assertEquals(List.of(4L, 5L), nullIds);
         assertMutableMap(repoNamesToIds, "asdf");
         assertMutable(fooIds);
+    }
+
+    @Test
+    void testGroupBy2() {
+        GitHubRepoBranch b1 = new GitHubRepoBranch(1, 1, "b1");
+        GitHubRepoBranch b2 = new GitHubRepoBranch(1, 1, "b2");
+        GitHubRepoBranch b3 = new GitHubRepoBranch(1, 2, "b3");
+        GitHubRepoBranch b4 = new GitHubRepoBranch(1, 2, "b4");
+        GitHubRepoBranch b5 = new GitHubRepoBranch(2, 3, "b5");
+        GitHubRepoBranch b6 = new GitHubRepoBranch(2, 3, "b6");
+        GitHubRepoBranch b7 = new GitHubRepoBranch(2, 4, "b7");
+        GitHubRepoBranch b8 = new GitHubRepoBranch(2, 4, "b8");
+        var allBranches = List.of(b1, b2, b3, b4, b5, b6, b7, b8);
+        var mapOrgIdToRepoIdToBranches = Lists.groupBy2(allBranches, GitHubRepoBranch::getOrgId, GitHubRepoBranch::getRepoId);
+        var org1Map = mapOrgIdToRepoIdToBranches.get(1L);
+        var org2Map = mapOrgIdToRepoIdToBranches.get(2L);
+
+        assertEquals(List.of(b1, b2), org1Map.get(1L));
+        assertEquals(List.of(b3, b4), org1Map.get(2L));
+        assertEquals(List.of(b5, b6), org2Map.get(3L));
+        assertEquals(List.of(b7, b8), org2Map.get(4L));
+
+        assertMutable(org1Map.get(1L));
+        assertMutableMap(org1Map, 123L);
+        assertMutableMap(mapOrgIdToRepoIdToBranches, 123L);
     }
 }

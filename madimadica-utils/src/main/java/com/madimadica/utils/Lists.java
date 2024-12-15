@@ -663,4 +663,32 @@ public abstract class Lists {
         return map;
     }
 
+    /**
+     * Nested-Group elements by 2 key mapping functions, nested. All elements with the same mapped key are part of the same group.
+     * <p>
+     *     Returned {@link Map}s and {@link List}s are guaranteed mutable with {@link HashMap} and {@link ArrayList} respectively.
+     * </p>
+     * <p>
+     *     Mappings to {@code null} keys are allowed, which differs from {@link Collectors#groupingBy(Function)}
+     * </p>
+     * @param collection collection of data to cluster
+     * @param outerClassifier how to cluster the data (the key to group on) on the outer layer
+     * @param innerClassifier how to cluster the data (the key to group on) on the inner layer
+     * @return A mutable Map of Mutable Maps to Mutable Lists.
+     * @param <K1> Type of the outer key to group on
+     * @param <K2> Type of the inner key to group on
+     * @param <V> Type of the elements being grouped
+     * @throws NullPointerException if any element of {@code collection} is {@code null}.
+     */
+    public static <V, K1, K2> Map<K1, Map<K2, List<V>>> groupBy2(
+            Collection<V> collection,
+            Function<? super V, ? extends K1> outerClassifier,
+            Function<? super V, ? extends K2> innerClassifier) {
+        Map<K1, List<V>> firstPass = groupBy(collection, outerClassifier);
+        Map<K1, Map<K2, List<V>>> secondPass = new HashMap<>();
+        for (var entry : firstPass.entrySet()) {
+            secondPass.put(entry.getKey(), groupBy(entry.getValue(), innerClassifier));
+        }
+        return secondPass;
+    }
 }
