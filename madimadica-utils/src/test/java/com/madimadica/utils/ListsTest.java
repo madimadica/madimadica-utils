@@ -6,6 +6,8 @@ import com.madimadica.utils.internal.model.Dog;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -347,6 +349,276 @@ class ListsTest {
         assertEquals("B", ageNameMap.get(8));
         assertEquals("C", ageNameMap.get(9));
         assertMutableMap(ageNameMap, 10);
+    }
+
+
+    @Test
+    void testPartitionInto_EqualMany() {
+        List<Integer> data = IntStream.range(0, 100).boxed().collect(Collectors.toList());
+        var partitions = Lists.partitionInto(data, 4);
+        assertEquals(4, partitions.size());
+        for (var partition : partitions) {
+            assertEquals(25, partition.size());
+            assertImmutable(partition);
+        }
+        assertImmutable(partitions);
+    }
+
+    @Test
+    void testPartitionInto_AllOne() {
+        List<Integer> data = IntStream.range(0, 25).boxed().collect(Collectors.toList());
+        var partitions = Lists.partitionInto(data, 25);
+        assertEquals(25, partitions.size());
+        for (var partition : partitions) {
+            assertEquals(1, partition.size());
+            assertImmutable(partition);
+        }
+        assertImmutable(partitions);
+    }
+
+    @Test
+    void testPartitionInto_SomeEmpty() {
+        List<Integer> data = IntStream.range(0, 3).boxed().collect(Collectors.toList());
+        var partitions = Lists.partitionInto(data, 5);
+        assertEquals(5, partitions.size());
+        assertImmutable(partitions);
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+        var p3 = partitions.get(2);
+        var p4 = partitions.get(3);
+        var p5 = partitions.get(4);
+        assertEquals(1, p1.size());
+        assertEquals(0, p1.get(0));
+        assertEquals(1, p2.size());
+        assertEquals(1, p2.get(0));
+        assertEquals(1, p3.size());
+        assertEquals(2, p3.get(0));
+        assertTrue(p4.isEmpty());
+        assertTrue(p5.isEmpty());
+        for (var partition : partitions) {
+            assertImmutable(partition);
+        }
+    }
+
+    @Test
+    void testPartitionInto_AllEmpty() {
+        List<Integer> empty = List.of();
+        var empty1 = Lists.partitionInto(empty, 1);
+        var empty2 = Lists.partitionInto(empty, 2);
+        var empty3 = Lists.partitionInto(empty, 3);
+        assertEquals(1, empty1.size());
+        assertEquals(2, empty2.size());
+        assertEquals(3, empty3.size());
+        for (var wrapper : List.of(empty1, empty2, empty3)) {
+            for (var partition : wrapper) {
+                assertTrue(partition.isEmpty());
+                assertImmutable(partition);
+            }
+            assertImmutable(wrapper);
+        }
+    }
+
+    @Test
+    void testPartitionInto_NonEqualMany() {
+        List<Integer> data = IntStream.range(0, 98).boxed().collect(Collectors.toList());
+        var partitions = Lists.partitionInto(data, 4);
+        assertImmutable(partitions);
+        for (var partition : partitions) {
+            assertImmutable(partition);
+        }
+        assertEquals(4, partitions.size());
+        assertEquals(25, partitions.get(0).size());
+        assertEquals(25, partitions.get(1).size());
+        assertEquals(25, partitions.get(2).size());
+        assertEquals(23, partitions.get(3).size());
+    }
+
+    @Test
+    void testPartitionInto_3x500() {
+        var partitions = Lists.partitionInto(List.of(1, 2, 3), 500);
+        assertEquals(500, partitions.size());
+        for (int i = 0; i < 3; ++i) {
+            assertEquals(List.of(i + 1), partitions.get(i));
+        }
+        for (int i = 3; i < 500; ++i) {
+            assertEquals(List.of(), partitions.get(i));
+        }
+    }
+
+    @Test
+    void testPartitionBySize_3x500() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3), 500);
+        assertEquals(1, partitions.size());
+        assertEquals(List.of(1, 2, 3), partitions.get(0));
+    }
+
+    @Test
+    void testPartitionBySize_empty() {
+        for (int i = 1; i < 25; ++i) {
+            var result = Lists.partitionBySize(List.of(), 1);
+            assertEquals(1, result.size());
+            assertTrue(result.get(0).isEmpty());
+            assertImmutable(result);
+            assertImmutable(result.get(0));
+        }
+    }
+
+    @Test
+    void testPartitionBySize_single() {
+        for (int i = 1; i < 25; ++i) {
+            for (int j = 1; j < 25; ++j) {
+                var result = Lists.partitionBySize(List.of(55), j);
+                assertEquals(1, result.size());
+                var partition = result.get(0);
+                assertEquals(List.of(55), partition);
+                assertImmutable(result);
+                assertImmutable(partition);
+            }
+        }
+    }
+
+    @Test
+    void testPartitionBySize_2x1() {
+        var partitions = Lists.partitionBySize(List.of(1, 2), 1);
+        assertEquals(2, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+
+        assertEquals(List.of(1), p1);
+        assertEquals(List.of(2), p2);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+    }
+
+    @Test
+    void testPartitionBySize_2x2() {
+        var partitions = Lists.partitionBySize(List.of(1, 2), 2);
+        assertEquals(1, partitions.size());
+        var p1 = partitions.get(0);
+        assertEquals(List.of(1, 2), p1);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+    }
+
+    @Test
+    void testPartitionBySize_3x2() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3), 2);
+        assertEquals(2, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+
+        assertEquals(List.of(1, 2), p1);
+        assertEquals(List.of(3), p2);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+    }
+
+    @Test
+    void testPartitionBySize_4x2() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3, 4), 2);
+        assertEquals(2, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+
+        assertEquals(List.of(1, 2), p1);
+        assertEquals(List.of(3, 4), p2);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+    }
+
+    @Test
+    void testPartitionBySize_5x2() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3, 4, 5), 2);
+        assertEquals(3, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+        var p3 = partitions.get(2);
+
+        assertEquals(List.of(1, 2), p1);
+        assertEquals(List.of(3, 4), p2);
+        assertEquals(List.of(5), p3);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+        assertImmutable(p3);
+    }
+
+    @Test
+    void testPartitionBySize_5x3() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3, 4, 5), 3);
+        assertEquals(2, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+
+        assertEquals(List.of(1, 2, 3), p1);
+        assertEquals(List.of(4, 5), p2);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+    }
+
+    @Test
+    void testPartitionBySize_10x3() {
+        var partitions = Lists.partitionBySize(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 3);
+        assertEquals(4, partitions.size());
+        var p1 = partitions.get(0);
+        var p2 = partitions.get(1);
+        var p3 = partitions.get(2);
+        var p4 = partitions.get(3);
+
+        assertEquals(List.of(1, 2, 3), p1);
+        assertEquals(List.of(4, 5, 6), p2);
+        assertEquals(List.of(7, 8, 9), p3);
+        assertEquals(List.of(10), p4);
+
+        assertImmutable(partitions);
+        assertImmutable(p1);
+        assertImmutable(p2);
+        assertImmutable(p3);
+        assertImmutable(p4);
+    }
+
+    @Test
+    void testPartitionClamp_10x6x5() {
+        var partitions = Lists.partitionClamp(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 6, 5);
+        assertEquals(2, partitions.size());
+        assertEquals(List.of(1, 2, 3, 4, 5), partitions.get(0));
+        assertEquals(List.of(6, 7, 8, 9, 10), partitions.get(1));
+    }
+
+    @Test
+    void testPartitionClamp_10x2x4() {
+        var partitions = Lists.partitionClamp(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 2, 4);
+        assertEquals(2, partitions.size());
+        assertEquals(List.of(1, 2, 3, 4, 5), partitions.get(0));
+        assertEquals(List.of(6, 7, 8, 9, 10), partitions.get(1));
+    }
+
+    @Test
+    void testPartitionClamp_10x2x100() {
+        var partitions = Lists.partitionClamp(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 2, 100);
+        assertEquals(1, partitions.size());
+        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), partitions.get(0));
+    }
+
+    @Test
+    void testPartitionClamp_10x100x2() {
+        var partitions = Lists.partitionClamp(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), 100, 2);
+        assertEquals(5, partitions.size());
+        assertEquals(List.of(1, 2), partitions.get(0));
+        assertEquals(List.of(3, 4), partitions.get(1));
+        assertEquals(List.of(5, 6), partitions.get(2));
+        assertEquals(List.of(7, 8), partitions.get(3));
+        assertEquals(List.of(9, 10), partitions.get(4));
     }
 
 }

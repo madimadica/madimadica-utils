@@ -348,4 +348,117 @@ public abstract class Lists {
         return copy;
     }
 
+    /**
+     * <p>
+     *     Partition (split) the given list into a total of {@code numberOfPartitions} sublists.
+     * </p>
+     * <p>
+     *     For example, if the given list was size 200, and you {@code numberOfPartitions} was 4,
+     *     then the result would be 4 lists, each with a size of 50. If instead the list was
+     *     size 201, the first of the 4 lists would be size 51, and the other 3 would be size 50.
+     * </p>
+     * <p>
+     *     The returned list and partitions are all immutable, and are deep copies of the original list.
+     * </p>
+     *
+     * @param list List to partition
+     * @param numberOfPartitions Total number of resulting partitions
+     * @return An immutable list of immutable partitions of equal size (+/- 1)
+     * @param <T> Type of list elements
+     */
+    public static <T> List<List<T>> partitionInto(List<T> list, int numberOfPartitions) {
+        if (list.size() < numberOfPartitions) {
+            // Handle the cases of empty partitions
+            List<List<T>> output = new ArrayList<>();
+            for (T t : list) {
+                output.add(List.of(t));
+            }
+            while (output.size() < numberOfPartitions) {
+                output.add(List.of());
+            }
+            return List.copyOf(output);
+        }
+
+        int maxPartitionSize = (int) Math.ceil(list.size() / (double) numberOfPartitions);
+        return partitionBySize(list, maxPartitionSize);
+    }
+
+    /**
+     * <p>
+     *     Partition (split) the given list into sublists of a size {@code partitionSize}.
+     * </p>
+     * <p>
+     *     For example, if the given list was size 200, and you {@code partitionSize} was 25,
+     *     then the result would be 8 lists, each with a size of 25. If instead the list was
+     *     size 201, there would be a 9th list of size 1. If it was size 200, there would be
+     *     7 lists of size 25, and the 8th list would be size 15.
+     * </p>
+     * <p>
+     *     Elements are not uniformly distributed, and the returned partitions are in non-increasing order.
+     * </p>
+     * <p>
+     *     The returned list and partitions are all immutable, and are deep copies of the original list.
+     * </p>
+     *
+     * @param list List to partition
+     * @param partitionSize Maximum size of each resulting partition
+     * @return An immutable list of immutable partitions of size up to and including {@code partitionSize}
+     * @param <T> Type of list elements
+     */
+    public static <T> List<List<T>> partitionBySize(List<T> list, int partitionSize) {
+        final int originalSize = list.size();
+        if (originalSize < partitionSize) {
+            // Single partition
+            return List.of(Collections.unmodifiableList(list));
+        }
+        final int totalPartitions = (int) Math.ceil(originalSize / (double) partitionSize);
+        List<List<T>> partitions = new ArrayList<>(totalPartitions);
+        List<T> currentPartition = new ArrayList<>();
+        for (T t : list) {
+            currentPartition.add(t);
+            if (currentPartition.size() == partitionSize) {
+                // Partition is full, start a new one
+                partitions.add(Collections.unmodifiableList(currentPartition));
+                currentPartition = new ArrayList<>();
+            }
+        }
+        if (!currentPartition.isEmpty()) {
+            partitions.add(Collections.unmodifiableList(currentPartition));
+        }
+        return Collections.unmodifiableList(partitions);
+    }
+
+    /**
+     * <p>
+     * Partition the list into at most {@code maxPartitions} partitions, but use less when possible,
+     * according to the {@code preferredPartitionSize}. If the {@code preferredPartitionSize} would
+     * exceed {@code maxPartitions}, then {@code maxPartitions} is prioritized and each partition
+     * will be of at least size {@code preferredPartitionSize}.
+     * </p>
+     * <p>
+     *     For example, with a {@code list} of size 200, calling <code>partitionClamp(list, 5, 25)</code>
+     *     will try to partition into size 25, but that would result in more than 5 partitions. Therefore,
+     *     the partition size is actually 40. By instead calling <code>partitionClamp(list, 5, 100)</code>
+     *     it will try to partition into size 100, which does not exceed the maximum of 5 partitions,
+     *     and will instead result in 2 partitions, each with size 100.
+     * </p>
+     * <p>
+     *     The returned list and partitions are all immutable, and are deep copies of the original list.
+     * </p>
+     *
+     * @param list list to partition
+     * @param maxPartitions the maximum number of partitions to return
+     * @param preferredPartitionSize the preferred size of the partitions returned
+     * @return An immutable list of immutable partitions
+     * @param <T> Type of list elements
+     * @see Lists#partitionInto(List, int)
+     * @see Lists#partitionBySize(List, int)
+     */
+    public static <T> List<List<T>> partitionClamp(List<T> list, int maxPartitions, int preferredPartitionSize) {
+        if (Math.ceil(list.size() / (double) preferredPartitionSize) > maxPartitions) {
+            return partitionInto(list, maxPartitions);
+        } else {
+            return partitionBySize(list, preferredPartitionSize);
+        }
+    }
 }
