@@ -635,6 +635,7 @@ public abstract class Sets {
      * @param setB set B
      * @return a new, mutable set, consisting of all the elements in set A and set B.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
         Set<T> union = new HashSet<>(setA);
@@ -647,6 +648,7 @@ public abstract class Sets {
      * @param sets sets to union
      * @return a new, mutable set, consisting of all the elements in all the sets.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     @SafeVarargs
     public static <T> Set<T> union(Set<T>... sets) {
@@ -663,6 +665,7 @@ public abstract class Sets {
      * @param setB set B
      * @return a new, mutable set, consisting of only the elements in both sets.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     public static <T> Set<T> intersection(Set<T> setA, Set<T> setB) {
         Set<T> intersection = new HashSet<>(setA);
@@ -675,6 +678,7 @@ public abstract class Sets {
      * @param sets sets to union
      * @return a new, mutable set, consisting of only the elements in every set.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     @SafeVarargs
     public static <T> Set<T> intersection(Set<T>... sets) {
@@ -697,6 +701,7 @@ public abstract class Sets {
      * @param setB set B
      * @return a new, mutable set, consisting of the elements in set A and not in set B.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     public static <T> Set<T> difference(Set<T> setA, Set<T> setB) {
         Set<T> result = new HashSet<>(setA);
@@ -710,6 +715,7 @@ public abstract class Sets {
      * @param setB set B
      * @return a new, mutable set, consisting of the elements that appear in only 1 set.
      * @param <T> Type of the elements
+     * @since 1.0
      */
     public static <T> Set<T> symmetricDifference(Set<T> setA, Set<T> setB) {
         Set<T> union = union(setA, setB);
