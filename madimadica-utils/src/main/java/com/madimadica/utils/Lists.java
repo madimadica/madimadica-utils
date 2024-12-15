@@ -146,102 +146,6 @@ public abstract class Lists {
     }
 
     /**
-     * Filter the given list into an immutable list by the given predicate.
-     * @param list list to filter
-     * @param predicate predicate to filter on
-     * @return an immutable list of the matching elements.
-     * @param <X> type of input and output list elements
-     */
-    public static <X> List<X> filter(List<X> list, Predicate<? super X> predicate) {
-        return list.stream().filter(predicate).collect(Collectors.toUnmodifiableList());
-    }
-
-    /**
-     * Filter the given list into a mutable list by the given predicate.
-     * @param list list to filter
-     * @param predicate predicate to filter on
-     * @return a mutable list of the matching elements.
-     * @param <X> type of input and output list elements
-     */
-    public static <X> List<X> filterMutable(List<X> list, Predicate<? super X> predicate) {
-        List<X> output = new ArrayList<>(list.size());
-        for (var e : list) {
-            if (predicate.test(e)) {
-                output.add(e);
-            }
-        }
-        return output;
-    }
-
-    /**
-     * Return an immutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @return a sorted, immutable copy of the original list
-     * @param <T> type of list elements
-     */
-    public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
-        return Collections.unmodifiableList(sortedMutable(list));
-    }
-
-    /**
-     * Return a mutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @return a sorted, mutable copy of the original list
-     * @param <T> type of list elements
-     */
-    public static <T extends Comparable<? super T>> List<T> sortedMutable(List<T> list) {
-        List<T> copy = new ArrayList<>(list);
-        Collections.sort(copy);
-        return copy;
-    }
-
-    /**
-     * Return an immutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @param comparator sort order
-     * @return a sorted, immutable copy of the original list
-     * @param <T> type of list elements
-     */
-    public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
-        return Collections.unmodifiableList(sortedMutable(list, comparator));
-    }
-
-    /**
-     * Return a mutable, sorted copy of the input list.
-     * @param list list of elements to sort elements of
-     * @param comparator sort order
-     * @return a sorted, mutable copy of the original list
-     * @param <T> type of list elements
-     */
-    public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
-        List<T> copy = new ArrayList<>(list);
-        copy.sort(comparator);
-        return copy;
-    }
-
-    /**
-     * Return an immutable copy of the given list in reverse order.
-     * @param list list of original elements
-     * @return an immutable copy of the original list, in reverse order.
-     * @param <T> type of list elements
-     */
-    public static <T> List<T> reversed(List<T> list) {
-        return Collections.unmodifiableList(reversedMutable(list));
-    }
-
-    /**
-     * Return a mutable copy of the given list in reverse order.
-     * @param list list of original elements
-     * @return a mutable copy of the original list, in reverse order.
-     * @param <T> type of list elements
-     */
-    public static <T> List<T> reversedMutable(List<T> list) {
-        List<T> copy = new ArrayList<>(list);
-        Collections.reverse(copy);
-        return copy;
-    }
-
-    /**
      * Map a list to an immutable set by a given mapping function.
      * @param list list to map elements from
      * @param mapper function to map each element by
@@ -346,6 +250,102 @@ public abstract class Lists {
             }
         }
         return output;
+    }
+
+    /**
+     * Filter the given list into an immutable list by the given predicate.
+     * @param list list to filter
+     * @param predicate predicate to filter on
+     * @return an immutable list of the matching elements.
+     * @param <X> type of input and output list elements
+     */
+    public static <X> List<X> filter(List<X> list, Predicate<? super X> predicate) {
+        return list.stream().filter(predicate).collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * Filter the given list into a mutable list by the given predicate.
+     * @param list list to filter
+     * @param predicate predicate to filter on
+     * @return a mutable list of the matching elements.
+     * @param <X> type of input and output list elements
+     */
+    public static <X> List<X> filterMutable(List<X> list, Predicate<? super X> predicate) {
+        List<X> output = new ArrayList<>(list.size());
+        for (var e : list) {
+            if (predicate.test(e)) {
+                output.add(e);
+            }
+        }
+        return output;
+    }
+
+    /**
+     * Return an immutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @return a sorted, immutable copy of the original list
+     * @param <T> type of list elements
+     */
+    public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
+        return Collections.unmodifiableList(sortedMutable(list));
+    }
+
+    /**
+     * Return a mutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @return a sorted, mutable copy of the original list
+     * @param <T> type of list elements
+     */
+    public static <T extends Comparable<? super T>> List<T> sortedMutable(List<T> list) {
+        List<T> copy = new ArrayList<>(list);
+        Collections.sort(copy);
+        return copy;
+    }
+
+    /**
+     * Return an immutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @param comparator sort order
+     * @return a sorted, immutable copy of the original list
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
+        return Collections.unmodifiableList(sortedMutable(list, comparator));
+    }
+
+    /**
+     * Return a mutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @param comparator sort order
+     * @return a sorted, mutable copy of the original list
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
+        List<T> copy = new ArrayList<>(list);
+        copy.sort(comparator);
+        return copy;
+    }
+
+    /**
+     * Return an immutable copy of the given list in reverse order.
+     * @param list list of original elements
+     * @return an immutable copy of the original list, in reverse order.
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> reversed(List<T> list) {
+        return Collections.unmodifiableList(reversedMutable(list));
+    }
+
+    /**
+     * Return a mutable copy of the given list in reverse order.
+     * @param list list of original elements
+     * @return a mutable copy of the original list, in reverse order.
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> reversedMutable(List<T> list) {
+        List<T> copy = new ArrayList<>(list);
+        Collections.reverse(copy);
+        return copy;
     }
 
 }
