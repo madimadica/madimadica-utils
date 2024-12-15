@@ -125,6 +125,7 @@ public abstract class Lists {
      * @return an immutable list of the mappings.
      * @param <X> type of input list elements
      * @param <Y> type of output list elements
+     * @since 1.0
      */
     public static <X, Y> List<Y> map(List<X> list, Function<? super X, ? extends Y> mapper) {
         return list.stream().map(mapper).collect(Collectors.toUnmodifiableList());
@@ -137,6 +138,7 @@ public abstract class Lists {
      * @return a mutable list of the mappings.
      * @param <X> type of input list elements
      * @param <Y> type of output list elements
+     * @since 1.0
      */
     public static <X, Y> List<Y> mapMutable(List<X> list, Function<? super X, ? extends Y> mapper) {
         List<Y> output = new ArrayList<>(list.size());
@@ -153,6 +155,7 @@ public abstract class Lists {
      * @return an immutable set of mapped elements
      * @param <X> type of input list elements
      * @param <Y> type of output set elements
+     * @since 1.0
      */
     public static <X, Y> Set<Y> mapToSet(List<X> list, Function<? super X, ? extends Y> mapper) {
         return list.stream().map(mapper).collect(Collectors.toUnmodifiableSet());
@@ -165,6 +168,7 @@ public abstract class Lists {
      * @return an mutable set of mapped elements
      * @param <X> type of input list elements
      * @param <Y> type of output set elements
+     * @since 1.0
      */
     public static <X, Y> Set<Y> mapToMutableSet(List<X> list, Function<? super X, ? extends Y> mapper) {
         Set<Y> set = new HashSet<>();
@@ -182,6 +186,7 @@ public abstract class Lists {
      * @param <V> Type of the resulting entry values, also the type of the input list
      * @throws IllegalStateException If the extracted keys are not unique
      * @throws NullPointerException If any extracted key is {@code null}, if the mapper is {@code null}, or if any list element is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> toMap(List<V> list, Function<? super V, ? extends K> keyMapper) {
         return list.stream().collect(Collectors.toUnmodifiableMap(keyMapper, Function.identity()));
@@ -199,6 +204,7 @@ public abstract class Lists {
      * @param <V> Type of the resulting entry values
      * @throws IllegalStateException If the extracted keys are not unique
      * @throws NullPointerException If any extracted key or value is {@code null}, if either mapper is {@code null}, or if any list element is {@code null}.
+     * @since 1.0
      */
     public static <T, K, V> Map<K, V> toMap(List<T> list, Function<? super T, ? extends K> keyMapper, Function<? super T, ? extends V> valueMapper) {
         return list.stream().collect(Collectors.toUnmodifiableMap(keyMapper, valueMapper));
@@ -214,6 +220,7 @@ public abstract class Lists {
      * @param <V> Type of the resulting entry values, also the type of the input list
      * @throws IllegalStateException If the extracted keys are not unique
      * @throws NullPointerException If any extracted key is {@code null}, if the mapper is {@code null}, or if any list element is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, V> toMutableMap(List<V> list, Function<? super V, ? extends K> keyMapper) {
         Map<K, V> output = new HashMap<>();
@@ -239,6 +246,7 @@ public abstract class Lists {
      * @param <V> Type of the resulting entry values
      * @throws IllegalStateException If the extracted keys are not unique
      * @throws NullPointerException If any extracted key or value is {@code null}, if either mapper is {@code null}, or if any list element is {@code null}.
+     * @since 1.0
      */
     public static <T, K, V> Map<K, V> toMutableMap(List<T> list, Function<? super T, ? extends K> keyMapper, Function<? super T, ? extends V> valueMapper) {
         Map<K, V> output = new HashMap<>();
@@ -259,6 +267,7 @@ public abstract class Lists {
      * @param predicate predicate to filter on
      * @return an immutable list of the matching elements.
      * @param <X> type of input and output list elements
+     * @since 1.0
      */
     public static <X> List<X> filter(List<X> list, Predicate<? super X> predicate) {
         return list.stream().filter(predicate).collect(Collectors.toUnmodifiableList());
@@ -270,6 +279,7 @@ public abstract class Lists {
      * @param predicate predicate to filter on
      * @return a mutable list of the matching elements.
      * @param <X> type of input and output list elements
+     * @since 1.0
      */
     public static <X> List<X> filterMutable(List<X> list, Predicate<? super X> predicate) {
         List<X> output = new ArrayList<>(list.size());
@@ -286,6 +296,7 @@ public abstract class Lists {
      * @param list list of elements to sort elements of
      * @return a sorted, immutable copy of the original list
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T extends Comparable<? super T>> List<T> sorted(List<T> list) {
         return Collections.unmodifiableList(sortedMutable(list));
@@ -296,6 +307,7 @@ public abstract class Lists {
      * @param list list of elements to sort elements of
      * @return a sorted, mutable copy of the original list
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T extends Comparable<? super T>> List<T> sortedMutable(List<T> list) {
         List<T> copy = new ArrayList<>(list);
@@ -309,6 +321,7 @@ public abstract class Lists {
      * @param comparator sort order
      * @return a sorted, immutable copy of the original list
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
         return Collections.unmodifiableList(sortedMutable(list, comparator));
@@ -320,6 +333,7 @@ public abstract class Lists {
      * @param comparator sort order
      * @return a sorted, mutable copy of the original list
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
         List<T> copy = new ArrayList<>(list);
@@ -332,6 +346,7 @@ public abstract class Lists {
      * @param list list of original elements
      * @return an immutable copy of the original list, in reverse order.
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T> List<T> reversed(List<T> list) {
         return Collections.unmodifiableList(reversedMutable(list));
@@ -342,6 +357,7 @@ public abstract class Lists {
      * @param list list of original elements
      * @return a mutable copy of the original list, in reverse order.
      * @param <T> type of list elements
+     * @since 1.0
      */
     public static <T> List<T> reversedMutable(List<T> list) {
         List<T> copy = new ArrayList<>(list);
@@ -366,6 +382,7 @@ public abstract class Lists {
      * @param numberOfPartitions Total number of resulting partitions
      * @return An immutable list of immutable partitions of equal size (+/- 1)
      * @param <T> Type of list elements
+     * @since 1.0
      */
     public static <T> List<List<T>> partitionInto(List<T> list, int numberOfPartitions) {
         if (list.size() < numberOfPartitions) {
@@ -405,6 +422,7 @@ public abstract class Lists {
      * @param partitionSize Maximum size of each resulting partition
      * @return An immutable list of immutable partitions of size up to and including {@code partitionSize}
      * @param <T> Type of list elements
+     * @since 1.0
      */
     public static <T> List<List<T>> partitionBySize(List<T> list, int partitionSize) {
         final int originalSize = list.size();
@@ -454,6 +472,7 @@ public abstract class Lists {
      * @param <T> Type of list elements
      * @see Lists#partitionInto(List, int)
      * @see Lists#partitionBySize(List, int)
+     * @since 1.0
      */
     public static <T> List<List<T>> partitionClamp(List<T> list, int maxPartitions, int preferredPartitionSize) {
         if (Math.ceil(list.size() / (double) preferredPartitionSize) > maxPartitions) {
@@ -469,6 +488,7 @@ public abstract class Lists {
      * @return An immutable list of the combined collections
      * @param <T> Type of collection elements
      * @throws NullPointerException if any argument of element of an argument is {@code null}
+     * @since 1.0
      */
     @SafeVarargs
     public static <T> List<T> flatMap(Collection<T>... collections) {
@@ -486,6 +506,7 @@ public abstract class Lists {
      * @return Immutable list of elements
      * @param <T> Type of list elements
      * @throws NullPointerException if {@code iterable} or any element is {@code null}.
+     * @since 1.0
      */
     public static <T> List<T> ofIterable(Iterable<T> iterable) {
         List<T> output = new ArrayList<>();
@@ -506,6 +527,7 @@ public abstract class Lists {
      * @return Immutable list of elements
      * @param <T> Type of list elements
      * @throws NullPointerException if {@code iterable} is {@code null}.
+     * @since 1.0
      */
     public static <T> List<T> ofIterableNullable(Iterable<T> iterable) {
         List<T> output = new ArrayList<>();
@@ -526,6 +548,7 @@ public abstract class Lists {
      * @return Mutable list of elements
      * @param <T> Type of list elements
      * @throws NullPointerException if {@code iterable} is {@code null}.
+     * @since 1.0
      */
     public static <T> List<T> ofIterableMutable(Iterable<T> iterable) {
         List<T> output = new ArrayList<>();
@@ -542,6 +565,7 @@ public abstract class Lists {
      * @param stringMapper Function to map {@code T} to {@link String}
      * @param <T> Type of elements
      * @throws UnsupportedOperationException if list is immutable
+     * @since 1.0
      */
     public static <T> void sortCaseInsensitive(List<T> list, Function<? super T, String> stringMapper) {
         list.sort((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(stringMapper.apply(a), stringMapper.apply(b)));
@@ -557,6 +581,7 @@ public abstract class Lists {
      * </p>
      * @param args values to flatten
      * @return A mutable list of flattened values
+     * @since 1.0
      */
     public static List<?> flatten(Object... args) {
         List<Object> output = new ArrayList<>();
@@ -623,6 +648,7 @@ public abstract class Lists {
      * @param <K> Type of the key to group on
      * @param <V> Type of the elements being grouped
      * @throws NullPointerException if any element of {@code collection} is {@code null}.
+     * @since 1.0
      */
     public static <K, V> Map<K, List<V>> groupBy(Collection<V> collection, Function<? super V, ? extends K> classifier) {
         Map<K, List<V>> map = new HashMap<>();
@@ -652,6 +678,7 @@ public abstract class Lists {
      * @param <K> Type of the key to group on
      * @param <V> Type of the elements being grouped
      * @throws NullPointerException if any element of {@code collection} is {@code null}.
+     * @since 1.0
      */
     public static <K, V, Y> Map<K, List<Y>> groupByAndMap(Collection<V> collection, Function<? super V, ? extends K> classifier, Function<? super V, ? extends Y> valueMapper) {
         Map<K, List<Y>> map = new HashMap<>();
@@ -679,6 +706,7 @@ public abstract class Lists {
      * @param <K2> Type of the inner key to group on
      * @param <V> Type of the elements being grouped
      * @throws NullPointerException if any element of {@code collection} is {@code null}.
+     * @since 1.0
      */
     public static <V, K1, K2> Map<K1, Map<K2, List<V>>> groupBy2(
             Collection<V> collection,
