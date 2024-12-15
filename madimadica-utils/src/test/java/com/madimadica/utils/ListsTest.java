@@ -194,4 +194,26 @@ class ListsTest {
         assertMutable(olderThan7);
     }
 
+    @Test
+    void testSorted() {
+        String a = "A";
+        String b = "B";
+        String c = "C";
+        List<String> list = List.of(c, a, b);
+        List<String> sorted = Lists.sorted(list);
+        assertEquals(List.of(a, b, c), sorted);
+        assertImmutable(sorted);
+    }
+
+    @Test
+    void testSortedMutable() {
+        String a = "A";
+        String b = "B";
+        String c = "C";
+        List<String> list = List.of(c, a, b);
+        List<String> sorted = Lists.sortedMutable(list);
+        assertEquals(List.of(a, b, c), sorted);
+        assertMutable(sorted);
+    }
+
 }
