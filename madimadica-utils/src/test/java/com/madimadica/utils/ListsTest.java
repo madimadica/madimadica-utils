@@ -736,4 +736,40 @@ class ListsTest {
         assertMutableMap(orgRepos, "asdf");
         assertMutable(org1);
     }
+
+    @Test
+    void testGroupByAndMap() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "bar");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "baz");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, "fizz");
+        GitHubRepo repo5 = new GitHubRepo(5, 2, "buzz");
+        List<GitHubRepo> allRepos = List.of(repo1, repo2, repo3, repo4, repo5);
+        Map<Long, List<String>> orgRepoNames = Lists.groupByAndMap(allRepos, GitHubRepo::getOrgId, GitHubRepo::getName);
+        assertEquals(2, orgRepoNames.size());
+        var org1 = orgRepoNames.get(1L);
+        var org2 = orgRepoNames.get(2L);
+        assertEquals(List.of("foo", "bar", "baz"), org1);
+        assertEquals(List.of("fizz", "buzz"), org2);
+        assertMutableMap(orgRepoNames, 5L);
+        assertMutable(org1);
+    }
+
+    @Test
+    void testGroupByAndMap_nullMapping() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "foo");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "foo");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, null);
+        GitHubRepo repo5 = new GitHubRepo(5, 2, null);
+        List<GitHubRepo> allRepos = List.of(repo1, repo2, repo3, repo4, repo5);
+        Map<String, List<Long>> repoNamesToIds = Lists.groupByAndMap(allRepos, GitHubRepo::getName, GitHubRepo::getRepoId);
+        assertEquals(2, repoNamesToIds.size());
+        var fooIds = repoNamesToIds.get("foo");
+        var nullIds = repoNamesToIds.get(null);
+        assertEquals(List.of(1L, 2L, 3L), fooIds);
+        assertEquals(List.of(4L, 5L), nullIds);
+        assertMutableMap(repoNamesToIds, "asdf");
+        assertMutable(fooIds);
+    }
 }
