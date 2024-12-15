@@ -546,4 +546,66 @@ public abstract class Lists {
     public static <T> void sortCaseInsensitive(List<T> list, Function<? super T, String> stringMapper) {
         list.sort((a, b) -> String.CASE_INSENSITIVE_ORDER.compare(stringMapper.apply(a), stringMapper.apply(b)));
     }
+
+    /**
+     * Flatten all iterables and arrays down to a flat list of elements.
+     * <p>
+     *     Nested elements, such as a {@code List<List<T>>} get recursively flattened.
+     * </p>
+     * <p>
+     *     The returned list is mutable.
+     * </p>
+     * @param args values to flatten
+     * @return A mutable list of flattened values
+     */
+    public static List<?> flatten(Object... args) {
+        List<Object> output = new ArrayList<>();
+        for (Object arg : args) {
+            // how does it work with T[]
+            if (arg == null) {
+                output.add(null);
+            } else if (arg instanceof Iterable<?>) {
+                for (Object o : (Iterable<?>) arg) {
+                    output.addAll(flatten(o));
+                }
+            } else if (arg instanceof Object[]) {
+                output.addAll(flatten((Object[]) arg));
+            } else if (arg instanceof byte[]) {
+                for (byte b : (byte[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof short[]) {
+                for (short b : (short[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof int[]) {
+                for (int b : (int[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof long[]) {
+                for (long b : (long[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof float[]) {
+                for (float b : (float[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof double[]) {
+                for (double b : (double[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof boolean[]) {
+                for (boolean b : (boolean[]) arg) {
+                    output.add(b);
+                }
+            } else if (arg instanceof char[]) {
+                for (char b : (char[]) arg) {
+                    output.add(b);
+                }
+            } else {
+                output.add(arg);
+            }
+        }
+        return output;
+    }
 }

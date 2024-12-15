@@ -673,4 +673,30 @@ class ListsTest {
         Lists.sortCaseInsensitive(dogs, Dog::getName);
         assertEquals(List.of(a, b, c), dogs);
     }
+
+    @Test
+    void testFlatten() {
+        int[] ints = {1, 2, 3, 4, 5};
+        String[] strings = {"hello", "world"};
+        double[][] double2D = {{1.0, 1.1}, {2.0, 2.1}};
+        var result = Lists.flatten(ints, strings, "hi", double2D);
+        assertEquals(
+                List.of(1, 2, 3, 4, 5, "hello", "world", "hi", 1.0, 1.1, 2.0, 2.1),
+                result
+        );
+        assertMutable(result);
+    }
+
+    @Test
+    void testFlattenWithNull() {
+        int[] ints = {1, 2, 3, 4, 5};
+        String[] strings = {"hello", null};
+        double[][] double2D = {{1.0, 1.1}, {2.0, 2.1}};
+        var result = Lists.flatten(ints, strings, "hi", double2D, null);
+        assertEquals(
+                Lists.ofNullable(1, 2, 3, 4, 5, "hello", null, "hi", 1.0, 1.1, 2.0, 2.1, null),
+                result
+        );
+        assertMutable(result);
+    }
 }
