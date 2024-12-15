@@ -493,4 +493,77 @@ class SetsTest {
     }
 
 
+    @Test
+    void testUnion() {
+        Set<Integer> set1 = Set.of(1, 2, 3);
+        Set<Integer> set2 = Set.of(3, 4, 5);
+        Set<Integer> expected = Set.of(1, 2, 3, 4, 5);
+
+        Set<Integer> result = Sets.union(set1, set2);
+        assertEquals(expected, result, "Union should contain all elements from both sets");
+    }
+
+    @Test
+    void testIntersection() {
+        Set<Integer> set1 = Set.of(1, 2, 3);
+        Set<Integer> set2 = Set.of(3, 4, 5);
+        Set<Integer> expected = Set.of(3);
+
+        Set<Integer> result = Sets.intersection(set1, set2);
+        assertEquals(expected, result, "Intersection should contain only common elements");
+    }
+
+    @Test
+    void testDifference() {
+        Set<Integer> set1 = Set.of(1, 2, 3);
+        Set<Integer> set2 = Set.of(3, 4, 5);
+        Set<Integer> expected = Set.of(1, 2);
+
+        Set<Integer> result = Sets.difference(set1, set2);
+        assertEquals(expected, result, "Difference should contain elements in set1 but not in set2");
+    }
+
+    @Test
+    void testSymmetricDifference() {
+        Set<Integer> set1 = Set.of(1, 2, 3);
+        Set<Integer> set2 = Set.of(3, 4, 5);
+        Set<Integer> expected = Set.of(1, 2, 4, 5);
+
+        Set<Integer> result = Sets.symmetricDifference(set1, set2);
+        assertEquals(expected, result, "Symmetric difference should contain elements in either set but not both");
+    }
+
+    @Test
+    void testEmptySets() {
+        Set<Integer> set1 = Set.of();
+        Set<Integer> set2 = Set.of();
+
+        assertEquals(Set.of(), Sets.union(set1, set2), "Union of two empty sets should be empty");
+        assertEquals(Set.of(), Sets.intersection(set1, set2), "Intersection of two empty sets should be empty");
+        assertEquals(Set.of(), Sets.difference(set1, set2), "Difference of two empty sets should be empty");
+        assertEquals(Set.of(), Sets.symmetricDifference(set1, set2), "Symmetric difference of two empty sets should be empty");
+    }
+
+    @Test
+    void testSubset() {
+        Set<Integer> set1 = Set.of(1, 2);
+        Set<Integer> set2 = Set.of(1, 2, 3);
+
+        assertEquals(set2, Sets.union(set1, set2), "Union should contain all elements from the superset");
+        assertEquals(set1, Sets.intersection(set1, set2), "Intersection should contain all elements from the subset");
+        assertEquals(Set.of(3), Sets.difference(set2, set1), "Difference should contain elements in superset but not in subset");
+        assertEquals(Set.of(3), Sets.symmetricDifference(set1, set2), "Symmetric difference should contain elements in one set but not both");
+    }
+
+    @Test
+    void testDisjointSets() {
+        Set<Integer> set1 = Set.of(1, 2);
+        Set<Integer> set2 = Set.of(3, 4);
+
+        assertEquals(Set.of(1, 2, 3, 4), Sets.union(set1, set2), "Union should contain all elements from disjoint sets");
+        assertEquals(Set.of(), Sets.intersection(set1, set2), "Intersection of disjoint sets should be empty");
+        assertEquals(set1, Sets.difference(set1, set2), "Difference should contain all elements of set1");
+        assertEquals(Set.of(1, 2, 3, 4), Sets.symmetricDifference(set1, set2), "Symmetric difference should contain all elements from disjoint sets");
+    }
+
 }

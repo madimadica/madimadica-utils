@@ -628,4 +628,56 @@ public abstract class Sets {
         }
         return map;
     }
+
+    /**
+     * Compute the union of two sets
+     * @param setA set A
+     * @param setB set B
+     * @return a new, mutable set, consisting of all the elements in set A and set B.
+     * @param <T> Type of the elements
+     */
+    public static <T> Set<T> union(Set<T> setA, Set<T> setB) {
+        Set<T> union = new HashSet<>(setA);
+        union.addAll(setB);
+        return union;
+    }
+
+    /**
+     * Compute the intersection of two sets
+     * @param setA set A
+     * @param setB set B
+     * @return a new, mutable set, consisting of all the elements both set A and set B.
+     * @param <T> Type of the elements
+     */
+    public static <T> Set<T> intersection(Set<T> setA, Set<T> setB) {
+        Set<T> intersection = new HashSet<>(setA);
+        intersection.retainAll(setB);
+        return intersection;
+    }
+
+    /**
+     * Compute the asymmetric difference of two sets. That is, <code>A - B</code>
+     * @param setA set A
+     * @param setB set B
+     * @return a new, mutable set, consisting of the elements in set A and not in set B.
+     * @param <T> Type of the elements
+     */
+    public static <T> Set<T> difference(Set<T> setA, Set<T> setB) {
+        Set<T> result = new HashSet<>(setA);
+        result.removeAll(setB);
+        return result;
+    }
+
+    /**
+     * Compute the symmetric difference of two sets.
+     * @param setA set A
+     * @param setB set B
+     * @return a new, mutable set, consisting of the elements that appear in only 1 set.
+     * @param <T> Type of the elements
+     */
+    public static <T> Set<T> symmetricDifference(Set<T> setA, Set<T> setB) {
+        Set<T> union = union(setA, setB);
+        Set<T> intersection = intersection(setA, setB);
+        return difference(union, intersection);
+    }
 }
