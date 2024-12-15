@@ -1,5 +1,9 @@
 package com.madimadica.utils;
 
+import com.madimadica.utils.internal.model.Animal;
+import com.madimadica.utils.internal.model.Cat;
+import com.madimadica.utils.internal.model.Dog;
+import com.madimadica.utils.internal.model.GitHubRepo;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -10,12 +14,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SetsTest {
 
-    private void assertImmutable(Set<Integer> set) {
-        assertThrows(UnsupportedOperationException.class, () -> set.add(0));
+    private void assertImmutable(Collection<?> list) {
+        assertThrows(UnsupportedOperationException.class, () -> list.add(null));
     }
 
-    private void assertMutable(Set<Integer> set) {
-        assertDoesNotThrow(() -> set.add(0));
+
+    private void assertMutable(Collection<?> list) {
+        assertDoesNotThrow(() -> list.add(null));
+    }
+
+    private <K> void assertImmutableMap(Map<K, ?> map, K key) {
+        assertThrows(UnsupportedOperationException.class, () ->  map.put(key, null));
+    }
+
+
+    private <K> void assertMutableMap(Map<K, ?> map, K key) {
+        assertDoesNotThrow(() -> map.put(key, null));
     }
 
     @Test
@@ -192,5 +206,257 @@ class SetsTest {
         assertDoesNotThrow(() -> Sets.copyOfOrderedNullable(Lists.ofNullable(1, null, 2)));
         assertDoesNotThrow(() -> Sets.copyOfNullable(Lists.ofNullable(1, null, 2)));
     }
+
+
+    @Test
+    void testMap_a() {
+        Set<Animal> animals = Set.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C"),
+                new Cat(10, "D", 0.5)
+        );
+        Set<Integer> ages = Sets.map(animals, Animal::getAge);
+        assertEquals(Set.of(7, 8, 9, 10), ages);
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMap_b() {
+        Set<Dog> animals = Set.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C")
+        );
+        Set<Integer> ages = Sets.map(animals, Animal::getAge);
+        assertEquals(Set.of(7, 8, 9), ages);
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMapMutable_a() {
+        Set<Animal> animals = Set.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C"),
+                new Cat(10, "D", 0.5)
+        );
+        Set<Integer> ages = Sets.mapMutable(animals, Animal::getAge);
+        assertEquals(Set.of(7, 8, 9, 10), ages);
+        assertMutable(ages);
+    }
+
+    @Test
+    void testMapMutable_b() {
+        Set<Dog> animals = Set.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C")
+        );
+        Set<Integer> ages = Sets.mapMutable(animals, Animal::getAge);
+        assertEquals(Set.of(7, 8, 9), ages);
+        assertMutable(ages);
+    }
+
+    @Test
+    void testFilter() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> dogs = Set.of(a, b, c);
+
+        Set<Dog> olderThan7 = Sets.filter(dogs, dog -> dog.getAge() > 7);
+        assertEquals(Set.of(b, c), olderThan7);
+        assertImmutable(olderThan7);
+    }
+
+    @Test
+    void testFilterMutable() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> dogs = Set.of(a, b, c);
+
+        Set<Dog> olderThan7 = Sets.filterMutable(dogs, dog -> dog.getAge() > 7);
+        assertEquals(Set.of(b, c), olderThan7);
+        assertMutable(olderThan7);
+    }
+
+    @Test
+    void testMapToList() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(7, "C");
+        Set<Dog> dogs = Set.of(a, b, c);
+        List<Integer> ages = Sets.mapToList(dogs, Animal::getAge);
+        assertEquals(3, ages.size());
+        assertTrue(ages.contains(7));
+        assertTrue(ages.contains(8));
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMapToMutableList() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(7, "C");
+        Set<Dog> dogs = Set.of(a, b, c);
+        List<Integer> ages = Sets.mapToMutableList(dogs, Animal::getAge);
+        assertEquals(3, ages.size());
+        assertTrue(ages.contains(7));
+        assertTrue(ages.contains(8));
+        assertMutable(ages);
+    }
+
+    @Test
+    void testToMapK() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(a, b, c);
+        var ageMap = Sets.toMap(list, Dog::getAge);
+        assertEquals(3, ageMap.size());
+        assertEquals(a, ageMap.get(7));
+        assertEquals(b, ageMap.get(8));
+        assertEquals(c, ageMap.get(9));
+        assertImmutableMap(ageMap, 10);
+    }
+
+    @Test
+    void testToMapKV() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(a, b, c);
+        var ageNameMap = Sets.toMap(list, Dog::getAge, Dog::getName);
+        assertEquals(3, ageNameMap.size());
+        assertEquals("A", ageNameMap.get(7));
+        assertEquals("B", ageNameMap.get(8));
+        assertEquals("C", ageNameMap.get(9));
+        assertImmutableMap(ageNameMap, 10);
+    }
+
+    @Test
+    void testToMutableMapK() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(a, b, c);
+        var ageMap = Sets.toMutableMap(list, Dog::getAge);
+        assertEquals(3, ageMap.size());
+        assertEquals(a, ageMap.get(7));
+        assertEquals(b, ageMap.get(8));
+        assertEquals(c, ageMap.get(9));
+        assertMutableMap(ageMap, 10);
+    }
+
+    @Test
+    void testToMutableMapKV() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        Set<Dog> list = Set.of(a, b, c);
+        var ageNameMap = Sets.toMutableMap(list, Dog::getAge, Dog::getName);
+        assertEquals(3, ageNameMap.size());
+        assertEquals("A", ageNameMap.get(7));
+        assertEquals("B", ageNameMap.get(8));
+        assertEquals("C", ageNameMap.get(9));
+        assertMutableMap(ageNameMap, 10);
+    }
+
+    @Test
+    void testOfIterable() {
+        assertThrows(NullPointerException.class, () -> Sets.ofIterable(Lists.ofNullable(1, null, 2)));
+        var set = Sets.ofIterable(Set.of(1, 2, 3));
+        assertEquals(Set.of(1, 2, 3), set);
+        assertImmutable(set);
+    }
+
+    @Test
+    void testOfIterableNullable() {
+        var set = Sets.ofIterableNullable(Lists.ofNullable(1, null, 2));
+        assertEquals(Sets.ofNullable(1, null, 2), set);
+        assertImmutable(set);
+    }
+
+    @Test
+    void testOfIterableMutable() {
+        var set = Sets.ofIterableMutable(Lists.ofNullable(1, null, 2));
+        assertEquals(Sets.ofNullable(1, null, 2), set);
+        assertMutable(set);
+    }
+
+    @Test
+    void testGroupBy() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "bar");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "baz");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, "fizz");
+        GitHubRepo repo5 = new GitHubRepo(5, 2, "buzz");
+        Set<GitHubRepo> allRepos = Set.of(repo1, repo2, repo3, repo4, repo5);
+        Map<Long, Set<GitHubRepo>> orgRepos = Sets.groupBy(allRepos, GitHubRepo::getOrgId);
+        assertEquals(2, orgRepos.size());
+        var org1 = orgRepos.get(1L);
+        var org2 = orgRepos.get(2L);
+        assertEquals(Set.of(repo1, repo2, repo3), org1);
+        assertEquals(Set.of(repo4, repo5), org2);
+        assertMutableMap(orgRepos, 5L);
+        assertMutable(org1);
+    }
+
+    @Test
+    void testGroupBy_nullMapping() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "foo");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "foo");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, null);
+        GitHubRepo repo5 = new GitHubRepo(5, 2, null);
+        Set<GitHubRepo> allRepos = Set.of(repo1, repo2, repo3, repo4, repo5);
+        Map<String, Set<GitHubRepo>> orgRepos = Sets.groupBy(allRepos, GitHubRepo::getName);
+        assertEquals(2, orgRepos.size());
+        var org1 = orgRepos.get("foo");
+        var org2 = orgRepos.get(null);
+        assertEquals(Set.of(repo1, repo2, repo3), org1);
+        assertEquals(Set.of(repo4, repo5), org2);
+        assertMutableMap(orgRepos, "asdf");
+        assertMutable(org1);
+    }
+
+    @Test
+    void testGroupByAndMap() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "bar");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "baz");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, "fizz");
+        GitHubRepo repo5 = new GitHubRepo(5, 2, "buzz");
+        Set<GitHubRepo> allRepos = Set.of(repo1, repo2, repo3, repo4, repo5);
+        Map<Long, Set<String>> orgRepoNames = Sets.groupByAndMap(allRepos, GitHubRepo::getOrgId, GitHubRepo::getName);
+        assertEquals(2, orgRepoNames.size());
+        var org1 = orgRepoNames.get(1L);
+        var org2 = orgRepoNames.get(2L);
+        assertEquals(Set.of("foo", "bar", "baz"), org1);
+        assertEquals(Set.of("fizz", "buzz"), org2);
+        assertMutableMap(orgRepoNames, 5L);
+        assertMutable(org1);
+    }
+
+    @Test
+    void testGroupByAndMap_nullMapping() {
+        GitHubRepo repo1 = new GitHubRepo(1, 1, "foo");
+        GitHubRepo repo2 = new GitHubRepo(2, 1, "foo");
+        GitHubRepo repo3 = new GitHubRepo(3, 1, "foo");
+        GitHubRepo repo4 = new GitHubRepo(4, 2, null);
+        GitHubRepo repo5 = new GitHubRepo(5, 2, null);
+        Set<GitHubRepo> allRepos = Set.of(repo1, repo2, repo3, repo4, repo5);
+        Map<String, Set<Long>> repoNamesToIds = Sets.groupByAndMap(allRepos, GitHubRepo::getName, GitHubRepo::getRepoId);
+        assertEquals(2, repoNamesToIds.size());
+        var fooIds = repoNamesToIds.get("foo");
+        var nullIds = repoNamesToIds.get(null);
+        assertEquals(Set.of(1L, 2L, 3L), fooIds);
+        assertEquals(Set.of(4L, 5L), nullIds);
+        assertMutableMap(repoNamesToIds, "asdf");
+        assertMutable(fooIds);
+    }
+
 
 }
