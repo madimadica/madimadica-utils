@@ -1,5 +1,8 @@
 package com.madimadica.utils;
 
+import com.madimadica.utils.internal.model.Animal;
+import com.madimadica.utils.internal.model.Cat;
+import com.madimadica.utils.internal.model.Dog;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -114,5 +117,55 @@ class ListsTest {
         assertNotSame(original, copy);
         assertEquals(original, copy);
         assertImmutable(copy);
+    }
+
+    @Test
+    void testMap_a() {
+        List<Animal> animals = List.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C"),
+                new Cat(10, "D", 0.5)
+        );
+        List<Integer> ages = Lists.map(animals, Animal::getAge);
+        assertEquals(List.of(7, 8, 9, 10), ages);
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMap_b() {
+        List<Dog> animals = List.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C")
+        );
+        List<Integer> ages = Lists.map(animals, Animal::getAge);
+        assertEquals(List.of(7, 8, 9), ages);
+        assertImmutable(ages);
+    }
+
+    @Test
+    void testMapMutable_a() {
+        List<Animal> animals = List.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C"),
+                new Cat(10, "D", 0.5)
+        );
+        List<Integer> ages = Lists.mapMutable(animals, Animal::getAge);
+        assertEquals(List.of(7, 8, 9, 10), ages);
+        assertMutable(ages);
+    }
+
+    @Test
+    void testMapMutable_b() {
+        List<Dog> animals = List.of(
+                new Dog(7, "A"),
+                new Dog(8, "B"),
+                new Dog(9, "C")
+        );
+        List<Integer> ages = Lists.mapMutable(animals, Animal::getAge);
+        assertEquals(List.of(7, 8, 9), ages);
+        assertMutable(ages);
     }
 }

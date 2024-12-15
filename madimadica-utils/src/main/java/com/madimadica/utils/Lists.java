@@ -1,6 +1,9 @@
 package com.madimadica.utils;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Static helper methods and factories for dealing with Lists.
@@ -112,6 +115,34 @@ public abstract class Lists {
     public static <T> List<T> copyOfNullable(Collection<? extends T> originalCollection) {
         List<T> result = new ArrayList<>(originalCollection);
         return Collections.unmodifiableList(result);
+    }
+
+    /**
+     * Map the given list into an immutable list by the given mapping function.
+     * @param list list to map
+     * @param mapper function to map each element by.
+     * @return an immutable list of the mappings.
+     * @param <X> type of input list elements
+     * @param <Y> type of output list elements
+     */
+    public static <X, Y> List<Y> map(List<X> list, Function<? super X, ? extends Y> mapper) {
+        return list.stream().map(mapper).collect(Collectors.toUnmodifiableList());
+    }
+
+    /**
+     * Map the given list into a mutable list by the given mapping function.
+     * @param list list to apply mapping to
+     * @param mapper function to map each element by.
+     * @return a mutable list of the mappings.
+     * @param <X> type of input list elements
+     * @param <Y> type of output list elements
+     */
+    public static <X, Y> List<Y> mapMutable(List<X> list, Function<? super X, ? extends Y> mapper) {
+        List<Y> output = new ArrayList<>(list.size());
+        for (var e : list) {
+            output.add(mapper.apply(e));
+        }
+        return output;
     }
 
 }
