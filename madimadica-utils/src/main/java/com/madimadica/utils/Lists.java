@@ -36,7 +36,7 @@ import java.util.*;
  *     </tbody>
  * </table>
  * <p>
- *     There is no <code>List.copyOfMutable(collection)</code>,
+ *     There is no <code>Lists.copyOfMutable(collection)</code>,
  *     instead use <code>new ArrayList&lt;&gt;(collection)</code>
  *     to achieve the same functionality.
  * </p>
@@ -52,18 +52,18 @@ public abstract class Lists {
 
     /**
      * <p>
-     *     Return an unmodifiable list containing a variable number of elements.
+     *     Returns an immutable list containing a variable number of elements.
      *     <br>
      *     The elements may contain {@code null} values, but the argument itself may not be {@code null}.
      * </p>
 
      * <p>
-     *     To create an unmodifiable list with a single {@code null} value,
+     *     To create an immutable list with a single {@code null} value,
      *     use {@code Lists.ofNullable((T) null)} where {@code T} is the resulting type.
      * </p>
      * @param <T> the {@code List}'s element type
      * @param elements the elements to be in the resulting list.
-     * @return an unmodifiable {@code List} containing the arguments in order.
+     * @return an immutable {@code List} containing the arguments in order.
      * @throws NullPointerException if {@code elements} is {@code null}.
      * @since 1.0
      */
@@ -76,13 +76,13 @@ public abstract class Lists {
 
     /**
      * <p>
-     *     Return a mutable list containing a variable number of elements.
+     *     Returns a mutable list containing a variable number of elements.
      *     <br>
      *     The elements may contain {@code null} values, but the argument itself may not be {@code null}.
      * </p>
 
      * <p>
-     *     To create an unmodifiable list with a single {@code null} value,
+     *     To create a mutable list with a single {@code null} value,
      *     use {@code Lists.ofMutable((T) null)} where {@code T} is the resulting type.
      * </p>
      * @param <T> the {@code List}'s element type
@@ -100,12 +100,12 @@ public abstract class Lists {
 
     /**
      * <p>
-     *     Return an unmodifiable list containing all the elements
+     *     Returns an immutable list containing all the elements
      *     in the {@code originalCollection} in their encounter order.
      * </p>
      * @param <T> type of collection elements
      * @param originalCollection collection to copy elements from.
-     * @return an unmodifiable {@code List} containing all the {@code Collection}'s elements.
+     * @return an immutable {@code List} containing all the {@code Collection}'s elements.
      * @throws NullPointerException if {@code originalCollection} is {@code null}.
      * @since 1.0
      */
