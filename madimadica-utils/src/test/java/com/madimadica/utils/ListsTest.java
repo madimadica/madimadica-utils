@@ -5,6 +5,7 @@ import com.madimadica.utils.internal.model.Cat;
 import com.madimadica.utils.internal.model.Dog;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -212,6 +213,28 @@ class ListsTest {
         String c = "C";
         List<String> list = List.of(c, a, b);
         List<String> sorted = Lists.sortedMutable(list);
+        assertEquals(List.of(a, b, c), sorted);
+        assertMutable(sorted);
+    }
+
+    @Test
+    void testSortedComparator() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(c, a, b);
+        List<Dog> sorted = Lists.sorted(list, Comparator.comparingInt(Dog::getAge));
+        assertEquals(List.of(a, b, c), sorted);
+        assertImmutable(sorted);
+    }
+
+    @Test
+    void testSortedMutableComparator() {
+        Dog a = new Dog(7, "A");
+        Dog b = new Dog(8, "B");
+        Dog c = new Dog(9, "C");
+        List<Dog> list = List.of(c, a, b);
+        List<Dog> sorted = Lists.sortedMutable(list, Comparator.comparingInt(Dog::getAge));
         assertEquals(List.of(a, b, c), sorted);
         assertMutable(sorted);
     }

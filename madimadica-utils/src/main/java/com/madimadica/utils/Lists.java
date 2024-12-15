@@ -195,4 +195,28 @@ public abstract class Lists {
         return copy;
     }
 
+    /**
+     * Return an immutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @param comparator sort order
+     * @return a new, sorted, immutable list of the original elements
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> sorted(List<T> list, Comparator<? super T> comparator) {
+        return Collections.unmodifiableList(sortedMutable(list, comparator));
+    }
+
+    /**
+     * Return a mutable, sorted copy of the input list.
+     * @param list list of elements to sort elements of
+     * @param comparator sort order
+     * @return a new, sorted, mutable list of the original elements
+     * @param <T> type of list elements
+     */
+    public static <T> List<T> sortedMutable(List<T> list, Comparator<? super T> comparator) {
+        List<T> copy = new ArrayList<>(list);
+        copy.sort(comparator);
+        return copy;
+    }
+
 }
