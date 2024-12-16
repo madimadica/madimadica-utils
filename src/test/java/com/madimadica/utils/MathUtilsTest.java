@@ -177,4 +177,93 @@ class MathUtilsTest {
         assertEquals(1.5, MathUtils.average(1.0, 2.0));
         assertEquals(1.5, MathUtils.average(2.0, 1.0));
     }
+
+
+    // GCD Tests for int
+    @Test
+    void testGcdIntPositiveNumbers() {
+        assertEquals(6, MathUtils.gcd(54, 24));
+        assertEquals(1, MathUtils.gcd(17, 13));
+        assertEquals(12, MathUtils.gcd(36, 60));
+    }
+
+    @Test
+    void testGcdIntWithZero() {
+        assertEquals(36, MathUtils.gcd(36, 0));
+        assertEquals(20, MathUtils.gcd(0, 20));
+        assertEquals(0, MathUtils.gcd(0, 0));
+    }
+
+    @Test
+    void testGcdIntNegativeNumbers() {
+        assertEquals(6, MathUtils.gcd(-54, 24));
+        assertEquals(6, MathUtils.gcd(54, -24));
+        assertEquals(6, MathUtils.gcd(-54, -24));
+    }
+
+    // GCD Tests for long
+    @Test
+    void testGcdLongPositiveNumbers() {
+        assertEquals(6L, MathUtils.gcd(54L, 24L));
+        assertEquals(1L, MathUtils.gcd(17L, 13L));
+        assertEquals(12L, MathUtils.gcd(36L, 60L));
+    }
+
+    @Test
+    void testGcdLongWithZero() {
+        assertEquals(36L, MathUtils.gcd(36L, 0L));
+        assertEquals(20L, MathUtils.gcd(0L, 20L));
+        assertEquals(0L, MathUtils.gcd(0L, 0L));
+    }
+
+    @Test
+    void testGcdLongNegativeNumbers() {
+        assertEquals(6L, MathUtils.gcd(-54L, 24L));
+        assertEquals(6L, MathUtils.gcd(54L, -24L));
+        assertEquals(6L, MathUtils.gcd(-54L, -24L));
+    }
+
+    // LCM Tests for int
+    @Test
+    void testLcmIntPositiveNumbers() {
+        assertEquals(216, MathUtils.lcm(54, 24));
+        assertEquals(221, MathUtils.lcm(17, 13));
+        assertEquals(180, MathUtils.lcm(36, 60));
+    }
+
+    @Test
+    void testLcmIntWithZero() {
+        assertEquals(0, MathUtils.lcm(36, 0));
+        assertEquals(0, MathUtils.lcm(0, 20));
+        assertEquals(0, MathUtils.lcm(0, 0));
+    }
+
+    @Test
+    void testLcmIntNegativeNumbers() {
+        assertEquals(216, MathUtils.lcm(-54, 24));
+        assertEquals(216, MathUtils.lcm(54, -24));
+        assertEquals(216, MathUtils.lcm(-54, -24));
+    }
+
+    // LCM Tests for long
+    @Test
+    void testLcmLongPositiveNumbers() {
+        assertEquals(216L, MathUtils.lcm(54L, 24L));
+        assertEquals(221L, MathUtils.lcm(17L, 13L));
+        assertEquals(180L, MathUtils.lcm(36L, 60L));
+    }
+
+    @Test
+    void testLcmLongWithZero() {
+        assertEquals(0L, MathUtils.lcm(36L, 0L));
+        assertEquals(0L, MathUtils.lcm(0L, 20L));
+        assertEquals(0L, MathUtils.lcm(0L, 0L));
+    }
+
+    @Test
+    void testLcmLongNegativeNumbers() {
+        assertEquals(216L, MathUtils.lcm(-54L, 24L));
+        assertEquals(216L, MathUtils.lcm(54L, -24L));
+        assertEquals(216L, MathUtils.lcm(-54L, -24L));
+    }
 }

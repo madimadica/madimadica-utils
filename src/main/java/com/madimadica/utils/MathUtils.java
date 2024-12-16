@@ -292,4 +292,70 @@ public class MathUtils {
         return total / args.length;
     }
 
+    /**
+     * Compute the greatest common divisor (GCD)
+     * @param a integer a
+     * @param b integer b
+     * @return The GCD of {@code a} and {@code b}
+     */
+    public static int gcd(int a, int b) {
+        if (a == b && b == 0) {
+            return 0;
+        }
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    /**
+     * Compute the greatest common divisor (GCD)
+     * @param a integer a
+     * @param b integer b
+     * @return The GCD of {@code a} and {@code b}
+     */
+    public static long gcd(long a, long b) {
+        if (a == b && b == 0) {
+            return 0;
+        }
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b != 0) {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    /**
+     * Compute the least common multiple (LCM)
+     * @param a integer a
+     * @param b integer b
+     * @return The LCM of {@code a} and {@code b}
+     */
+    public static int lcm(int a, int b) {
+        if (a == b && b == 0) {
+            return 0;
+        }
+        return (Math.abs(a) / gcd(a, b)) * Math.abs(b);
+    }
+
+    /**
+     * Compute the least common multiple (LCM)
+     * @param a integer a
+     * @param b integer b
+     * @return The LCM of {@code a} and {@code b}
+     */
+    public static long lcm(long a, long b) {
+        if (a == b && b == 0) {
+            return 0;
+        }
+        return (Math.abs(a) / gcd(a, b)) * Math.abs(b);
+    }
+
 }
