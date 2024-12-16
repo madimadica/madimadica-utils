@@ -358,4 +358,208 @@ public class MathUtils {
         return (Math.abs(a) / gcd(a, b)) * Math.abs(b);
     }
 
+    /**
+     * Compute the population variance
+     * @param args population
+     * @return population variance
+     */
+    public static double variance(int... args) {
+        double xbar = average(args);
+        double deltas = 0;
+        for (int xi : args) {
+            double diff = (xi - xbar);
+            deltas += (diff * diff);
+        }
+        return deltas / args.length;
+    }
+
+    /**
+     * Compute the sample variance
+     * @param args samples
+     * @return sample variance
+     */
+    public static double sampleVariance(int... args) {
+        if (args.length <= 1) {
+            throw new IllegalArgumentException("Must have at least 2 samples");
+        }
+        double ybar = average(args);
+        double deltas = 0;
+        for (int yi : args) {
+            double diff = (yi - ybar);
+            deltas += (diff * diff);
+        }
+        return deltas / (args.length - 1);
+    }
+
+    /**
+     * Compute the population standard deviation
+     * @param args population
+     * @return population standard deviation
+     */
+    public static double stdDev(int... args) {
+        return Math.sqrt(variance(args));
+    }
+
+    /**
+     * Compute the sample standard deviation
+     * @param args sample
+     * @return sample standard deviation
+     */
+    public static double sampleStdDev(int... args) {
+        return Math.sqrt(sampleVariance(args));
+    }
+
+    /**
+     * Compute the population variance
+     * @param args population
+     * @return population variance
+     */
+    public static double variance(long... args) {
+        double xbar = average(args);
+        double deltas = 0;
+        for (long xi : args) {
+            double diff = (xi - xbar);
+            deltas += (diff * diff);
+        }
+        return deltas / args.length;
+    }
+
+    /**
+     * Compute the sample variance
+     * @param args samples
+     * @return sample variance
+     */
+    public static double sampleVariance(long... args) {
+        if (args.length <= 1) {
+            throw new IllegalArgumentException("Must have at least 2 samples");
+        }
+        double ybar = average(args);
+        double deltas = 0;
+        for (long yi : args) {
+            double diff = (yi - ybar);
+            deltas += (diff * diff);
+        }
+        return deltas / (args.length - 1);
+    }
+
+    /**
+     * Compute the population standard deviation
+     * @param args population
+     * @return population standard deviation
+     */
+    public static double stdDev(long... args) {
+        return Math.sqrt(variance(args));
+    }
+
+    /**
+     * Compute the sample standard deviation
+     * @param args sample
+     * @return sample standard deviation
+     */
+    public static double sampleStdDev(long... args) {
+        return Math.sqrt(sampleVariance(args));
+    }
+
+    /**
+     * Compute the population variance
+     * @param args population
+     * @return population variance
+     */
+    public static double variance(float... args) {
+        double xbar = average(args);
+        double deltas = 0;
+        for (float xi : args) {
+            double diff = (xi - xbar);
+            deltas += (diff * diff);
+        }
+        return deltas / args.length;
+    }
+    
+    /**
+     * Compute the sample variance
+     * @param args samples
+     * @return sample variance
+     */
+    public static double sampleVariance(float... args) {
+        if (args.length <= 1) {
+            throw new IllegalArgumentException("Must have at least 2 samples");
+        }
+        double ybar = average(args);
+        double deltas = 0;
+        for (float yi : args) {
+            double diff = (yi - ybar);
+            deltas += (diff * diff);
+        }
+        return deltas / (args.length - 1);
+    }
+
+    /**
+     * Compute the population standard deviation
+     * @param args population
+     * @return population standard deviation
+     */
+    public static double stdDev(float... args) {
+        return Math.sqrt(variance(args));
+    }
+
+    /**
+     * Compute the sample standard deviation
+     * @param args sample
+     * @return sample standard deviation
+     */
+    public static double sampleStdDev(float... args) {
+        return Math.sqrt(sampleVariance(args));
+    }
+
+    /**
+     * Compute the population variance
+     * @param args population
+     * @return population variance
+     */
+    public static double variance(double... args) {
+        double xbar = average(args);
+        double deltas = 0;
+        for (double xi : args) {
+            double diff = (xi - xbar);
+            deltas += (diff * diff);
+        }
+        return deltas / args.length;
+    }
+
+    /**
+     * Compute the sample variance
+     * @param args samples
+     * @return sample variance
+     */
+    public static double sampleVariance(double... args) {
+        if (args.length <= 1) {
+            throw new IllegalArgumentException("Must have at least 2 samples");
+        }
+        double ybar = average(args);
+        double deltas = 0;
+        for (double yi : args) {
+            double diff = (yi - ybar);
+            deltas += (diff * diff);
+        }
+        return deltas / (args.length - 1);
+    }
+
+    /**
+     * Compute the population standard deviation
+     * @param args population
+     * @return population standard deviation
+     */
+    public static double stdDev(double... args) {
+        return Math.sqrt(variance(args));
+    }
+    
+    /**
+     * Compute the sample standard deviation
+     * @param args sample
+     * @return sample standard deviation
+     */
+    public static double sampleStdDev(double... args) {
+        return Math.sqrt(sampleVariance(args));
+    }
+
 }
